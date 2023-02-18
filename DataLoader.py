@@ -42,7 +42,7 @@ class DataLoader:
                                for importing the data. 
                                
         Returns:
-        * pandas DataFrame containing the imported data.
+        *  a DataTable object containing the imported data + some metadata.
         """
         if not self.__validate_interactive(interactive):
             raise ValueError('Wrong interactivity mode passed.')
@@ -66,7 +66,11 @@ class DataLoader:
         else:
             import_params = parameters
 
-        return self.__pandas_loader(path, extension, import_params)
+        df = self.__pandas_loader(path, extension, import_params)
+        filename = path.split('\\')[-1].split('.')[0]
+                              
+        from DataTable import DataTable as DT
+        return DT(df, name=filename)
     
     def get_loader_info(self):
         """
