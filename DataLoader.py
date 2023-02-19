@@ -72,6 +72,24 @@ class DataLoader:
         from DataTable import DataTable as DT
         return DT(df, name=filename)
     
+    def load_saved_DT(self, pickle_path):
+        """
+A method to load a DataTable instance stored in a pickle file.
+It requires pickle_path (string) as a parameter - a path to the pickle.
+It returns the resolved DataTable instance of course.
+        """
+        if pickle_path[-4:] != '.pkl':
+            raise ValueError('The path must specify a pickle dump')
+            
+        import pickle
+        import DataTable as DT
+        with open(pickle_path, 'rb') as dump:
+            readen = pickle.load(dump)
+            if isinstance(readen, DT.DataTable):
+                return readen
+            else:
+                raise TypeError('Readen file must be a DataTable instance')
+                
     def get_loader_info(self):
         """
         A typical informative/sumamry method. It returns an info string about:
