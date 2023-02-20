@@ -35,24 +35,36 @@ class MainWindow(QMainWindow):
         self.__dl_log_msg('Initiate data loading: ...')
         self.__curr_DT = self.loader.load_data()
         self.__dl_log_msg('Data loaded successfully')
-        self.__dl_disable_pbs_after_load()
-        self.__dl_enable_pbs_after_load()
+        self.__dl_post_loading_pb_switch()
 
     def load_pickle(self):
-        pass
+        self.__dl_log_msg('Initiate data loading: ...')
+        self.__curr_DT = self.loader.load_saved_DT()
+        self.__dl_log_msg('Data loaded successfully')
+        self.__dl_post_loading_pb_switch()
 
+    def clear_curr_DT(self):
+        del self.__curr_DT
+        self.__dl_log_msg('Current DataTable cleared')
+        self.__dl_post_clearing_pb_switch()
+
+    #submethods
     def __dl_log_msg(self, msg):
         self.dl_tb_log_console.append(msg)
 
-    def __dl_disable_pbs_after_load(self):
+    def __dl_post_loading_pb_switch(self):
         self.dl_pb_load_data.setDisabled(1)
         self.dl_pb_load_pickle.setDisabled(1)
-
-    def __dl_enable_pbs_after_load(self):
         self.dl_pb_clear.setEnabled(1)
         self.dl_pb_save_pickle.setEnabled(1)
         self.dl_pb_summary.setEnabled(1)
 
+    def __dl_post_clearing_pb_switch(self):
+        self.dl_pb_load_data.setEnabled(1)
+        self.dl_pb_load_pickle.setEnabled(1)
+        self.dl_pb_clear.setDisabled(1)
+        self.dl_pb_save_pickle.setDisabled(1)
+        self.dl_pb_summary.setDisabled(1)
 
 if __name__ == "__main__":
     app = QApplication([])

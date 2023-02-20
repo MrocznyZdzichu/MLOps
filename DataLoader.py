@@ -72,15 +72,25 @@ class DataLoader:
         from DataTable import DataTable as DT
         return DT(df, name=filename)
     
-    def load_saved_DT(self, pickle_path):
+    def load_saved_DT(self, pickle_path='', interactive=True):
         """
 A method to load a DataTable instance stored in a pickle file.
-It requires pickle_path (string) as a parameter - a path to the pickle.
-It returns the resolved DataTable instance of course.
+----------
+Parameters:
+pickle_path ()     - an explicit path to the loaded pickled DataTable
+interactive (True) - True for interactive mode based on easygui. False for explicit path required.
+----------
+Returns: 
+The loaded DataTable object
         """
-        if pickle_path[-4:] != '.pkl':
+        if not self.__validate_interactive:
+            raise ValueError('interactive flag must be one of: (True, False)')
+        if pickle_path[-4:] != '.pkl' and interactive == False:
             raise ValueError('The path must specify a pickle dump')
             
+        import easygui
+        pickle_path = easygui.fileopenbox()
+        
         import pickle
         import DataTable as DT
         with open(pickle_path, 'rb') as dump:

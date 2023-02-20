@@ -35,7 +35,7 @@
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
-            <layout class="QGridLayout" name="gridLayout" rowstretch="1,3,1,2,1" columnstretch="1,1">
+            <layout class="QGridLayout" name="gridLayout" rowstretch="1,3,1,2" columnstretch="1,1">
              <property name="leftMargin">
               <number>20</number>
              </property>
@@ -150,7 +150,7 @@
               <widget class="QTextBrowser" name="dl_tb_log_console"/>
              </item>
              <item row="1" column="0">
-              <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,0,0,2,1,0" columnstretch="1,0,1">
+              <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,0,0,2,1" columnstretch="1,0,1">
                <property name="leftMargin">
                 <number>50</number>
                </property>
@@ -276,8 +276,8 @@
    <slot>load_data()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>158</x>
-     <y>226</y>
+     <x>199</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
      <x>166</x>
@@ -292,12 +292,28 @@
    <slot>load_pickle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>288</x>
-     <y>224</y>
+     <x>346</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
      <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dl_pb_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clear_curr_DT()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>578</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>582</x>
+     <y>3</y>
     </hint>
    </hints>
   </connection>
@@ -306,5 +322,6 @@
   <slot>change_size(int)</slot>
   <slot>load_data()</slot>
   <slot>load_pickle()</slot>
+  <slot>clear_curr_DT()</slot>
  </slots>
 </ui>
