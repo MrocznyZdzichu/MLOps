@@ -333,6 +333,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>dl_pb_summary</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>print_summary()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>554</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>552</x>
+     <y>-30</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
@@ -340,5 +356,6 @@
   <slot>load_pickle()</slot>
   <slot>clear_curr_DT()</slot>
   <slot>save_DT()</slot>
+  <slot>print_summary()</slot>
  </slots>
 </ui>

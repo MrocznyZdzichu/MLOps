@@ -65,6 +65,10 @@ class MainWindow(QMainWindow):
         else:
             self.__dl_log_msg('Saving successful')
 
+    def print_summary(self):
+        summary_string = self.__curr_DT.get_summary()
+        self.__dl_log_msg(summary_string)
+
     #submethods
     def __dl_log_msg(self, msg):
         self.dl_tb_log_console.append(msg)
