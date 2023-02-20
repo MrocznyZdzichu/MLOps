@@ -33,20 +33,37 @@ class MainWindow(QMainWindow):
 
     def load_data(self):
         self.__dl_log_msg('Initiate data loading: ...')
-        self.__curr_DT = self.loader.load_data()
-        self.__dl_log_msg('Data loaded successfully')
-        self.__dl_post_loading_pb_switch()
+        try:
+            self.__curr_DT = self.loader.load_data()
+        except:
+            self.__dl_log_msg('An error occured during loading the data')
+        else:
+            self.__dl_log_msg('Data loaded successfully')
+            self.__dl_post_loading_pb_switch()
 
     def load_pickle(self):
         self.__dl_log_msg('Initiate data loading: ...')
-        self.__curr_DT = self.loader.load_saved_DT()
-        self.__dl_log_msg('Data loaded successfully')
-        self.__dl_post_loading_pb_switch()
+        try:
+            self.__curr_DT = self.loader.load_saved_DT()
+        except:
+            self.__dl_mog_msg('An error occured during loading the pickle')
+        else:
+            self.__dl_log_msg('Data loaded successfully')
+            self.__dl_post_loading_pb_switch()
 
     def clear_curr_DT(self):
         del self.__curr_DT
         self.__dl_log_msg('Current DataTable cleared')
         self.__dl_post_clearing_pb_switch()
+
+    def save_DT(self):
+        self.__dl_log_msg('Saving the DataTable')
+        try:
+            self.__curr_DT.save()
+        except:
+            self.__dl_log_msg('An error occured during saving the DataTable')
+        else:
+            self.__dl_log_msg('Saving successful')
 
     #submethods
     def __dl_log_msg(self, msg):

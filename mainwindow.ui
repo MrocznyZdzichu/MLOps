@@ -317,11 +317,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>dl_pb_save_pickle</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_DT()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>531</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>533</x>
+     <y>-10</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
   <slot>load_data()</slot>
   <slot>load_pickle()</slot>
   <slot>clear_curr_DT()</slot>
+  <slot>save_DT()</slot>
  </slots>
 </ui>
