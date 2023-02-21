@@ -15,7 +15,7 @@ class DataRepository:
             self.__deployment_dir = easygui.diropenbox()
             
         self.__reserved_for_this = 'DATAREPOSITORY_SELFSTORAGE'
-        selfstore_file = self.__deployment_dir + '\\' + self.__reserved_for_this + '.pkl'
+        selfstore_file = self.__get_DT_site(self.__reserved_for_this)
         
         if not os.path.isfile(selfstore_file):
             self.__maintained_DTs = []
@@ -82,7 +82,8 @@ class DataRepository:
             del store[DT_name]
             
         self.__maintained_DTs.remove(DT_name)
-        physical_storage_loc = self.__deployment_dir + '\\' + DT_name + '.pkl' 
+        physical_storage_loc = self.__get_DT_site(DT_name)
+        
         if not os.path.isfile(physical_storage_loc):
             raise ValueError("The DataTable's pickle is missing. Critical error!")
             
@@ -92,7 +93,7 @@ class DataRepository:
         
     def save(self):
         import pickle
-        save_store = self.__deployment_dir + '\\' + self.__reserved_for_this + '.pkl'
+        save_store = self.__get_DT_site(self.__reserved_for_this)
         with open(save_store, 'wb') as store:
             pickle.dump(self, store)
             
@@ -101,7 +102,7 @@ class DataRepository:
             self.remove_DataTable(stored_data)
         
         import os
-        selfstorage_path = self.__deployment_dir + '\\' + self.__reserved_for_this + '.pkl'
+        selfstorage_path = self.__get_DT_site(self.__reserved_for_this)
         os.remove(selfstorage_path)
         
         self = self.__init__(self.__deployment_dir, interactive=0)
@@ -109,6 +110,22 @@ class DataRepository:
     def get_deployment_dir(self):
         return self.__deployment_dir
     
+    def get_DT(self, DT_name):
+        if not isinstance(DT_name, str):
+            raise TypeError("A DataTable's name must be a string.")
+        if DT_name not in self.__maintained_DTs:
+            raise ValueError("There is not a such DataTable as passed.")
+        
+        DT_pickle_loc = self.__get_DT_site(DT_name)
+        
+        import os
+        if not os.path.isfile(DT_pickle_loc):
+            raise RuntimeError('Data not found but it was registered. Recreating the repository is adviced')
+            
+        import pickle
+        with open(DT_pickle_loc, 'rb') as site:
+            return pickle.load(site)
+        
     def get_maintained_DTs(self):
         return self.__maintained_DTs
     
@@ -134,3 +151,7 @@ class DataRepository:
             raise ValueError('The name you provided doesnt name an existing DataTable in the Repository')
         else:
             return attribute[DT_name]
+        
+    def __get_DT_site(self, DT_name):
+        DT_site = self.__deployment_dir + "\\" + DT_name + '.pkl'
+        return DT_site
