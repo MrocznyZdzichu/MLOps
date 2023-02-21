@@ -85,11 +85,13 @@ The loaded DataTable object
         """
         if not self.__validate_interactive:
             raise ValueError('interactive flag must be one of: (True, False)')
+        
         if pickle_path[-4:] != '.pkl' and interactive == False:
             raise ValueError('The path must specify a pickle dump')
-            
-        import easygui
-        pickle_path = easygui.fileopenbox()
+    
+        if interactive == True:
+            import easygui
+            pickle_path = easygui.fileopenbox()
         
         import pickle
         import DataTable as DT
