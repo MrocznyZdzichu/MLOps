@@ -16,9 +16,11 @@ class MainWindow(QMainWindow):
         window.show()
         self.__tabs_indices = {
             0 : "DataLoader"
+            , 1 : "DataRepository"
         }
         self.__tabs_sizes = {
             0 : (480, 320)
+            , 1 : (1000, 700)
         }
         self.resize(*self.__tabs_sizes[0])
 
