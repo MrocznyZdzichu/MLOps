@@ -7,9 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import uic
 import qdarkstyle
 
-import DataLoader as DL
-import DataTable as DT
-
+from  dl_tab_manager import DL_Tab
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -24,7 +22,7 @@ class MainWindow(QMainWindow):
         }
         self.resize(*self.__tabs_sizes[0])
 
-        self.loader = DL.DataLoader()
+        self.DL_manager = DL_Tab(self)
 
     #UI mainwindow slots do make this shiet live
     def change_size(self, tab_no):
@@ -32,60 +30,20 @@ class MainWindow(QMainWindow):
         self.resize(*sizes)
 
     def load_data(self):
-        self.__dl_log_msg('Initiate data loading: ...')
-        try:
-            self.__curr_DT = self.loader.load_data()
-        except:
-            self.__dl_log_msg('An error occured during loading the data')
-        else:
-            self.__dl_log_msg('Data loaded successfully')
-            self.__dl_post_loading_pb_switch()
+        self.DL_manager.load_data()
 
     def load_pickle(self):
-        self.__dl_log_msg('Initiate data loading: ...')
-        try:
-            self.__curr_DT = self.loader.load_saved_DT()
-        except:
-            self.__dl_mog_msg('An error occured during loading the pickle')
-        else:
-            self.__dl_log_msg('Data loaded successfully')
-            self.__dl_post_loading_pb_switch()
+        self.DL_manager.load_pickle()
 
     def clear_curr_DT(self):
-        del self.__curr_DT
-        self.__dl_log_msg('Current DataTable cleared')
-        self.__dl_post_clearing_pb_switch()
+        self.DL_manager.clear_curr_DT()
 
     def save_DT(self):
-        self.__dl_log_msg('Saving the DataTable')
-        try:
-            self.__curr_DT.save()
-        except:
-            self.__dl_log_msg('An error occured during saving the DataTable')
-        else:
-            self.__dl_log_msg('Saving successful')
+        self.DL_manager.save_DT()
 
     def print_summary(self):
-        summary_string = self.__curr_DT.get_summary()
-        self.__dl_log_msg(summary_string)
+        self.DL_manager.print_summary()
 
-    #submethods
-    def __dl_log_msg(self, msg):
-        self.dl_tb_log_console.append(msg)
-
-    def __dl_post_loading_pb_switch(self):
-        self.dl_pb_load_data.setDisabled(1)
-        self.dl_pb_load_pickle.setDisabled(1)
-        self.dl_pb_clear.setEnabled(1)
-        self.dl_pb_save_pickle.setEnabled(1)
-        self.dl_pb_summary.setEnabled(1)
-
-    def __dl_post_clearing_pb_switch(self):
-        self.dl_pb_load_data.setEnabled(1)
-        self.dl_pb_load_pickle.setEnabled(1)
-        self.dl_pb_clear.setDisabled(1)
-        self.dl_pb_save_pickle.setDisabled(1)
-        self.dl_pb_summary.setDisabled(1)
 
 if __name__ == "__main__":
     app = QApplication([])
