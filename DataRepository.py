@@ -18,11 +18,12 @@ class DataRepository:
         selfstore_file = self.__get_DT_site(self.__reserved_for_this)
         
         if not os.path.isfile(selfstore_file):
-            self.__maintained_DTs = []
-            self.__feature_store  = {}
-            self.__DTs_variables  = {}    
-            self.__DTs_shapes     = {}
-            self.__DTs_summaries  = {}
+            self.__maintained_DTs    = []
+            self.__feature_store     = {}
+            self.__DTs_variables     = {}    
+            self.__DTs_shapes        = {}
+            self.__DTs_summaries     = {}
+            self.__DTs_register_time = {}
         
         else:
             self.__restore_self(selfstore_file)
@@ -32,12 +33,12 @@ class DataRepository:
         with open(dump_loc, 'rb') as dump:
             saved_state = pickle.load(dump)
             
-        self.__maintained_DTs = saved_state.get_maintained_DTs()
-        self.__feature_store  = saved_state.get_feature_store()
-        self.__DTs_variables  = saved_state.get_variables()
-        self.__DTs_shapes     = saved_state.get_shapes()
-        self.__DTs_summaries  = saved_state.get_summaries()
-        
+        self.__maintained_DTs    = saved_state.get_maintained_DTs()
+        self.__feature_store     = saved_state.get_feature_store()
+        self.__DTs_variables     = saved_state.get_variables()
+        self.__DTs_shapes        = saved_state.get_shapes()
+        self.__DTs_summaries     = saved_state.get_summaries()
+        self.__DTs_register_time = saved_state.get_register_times()
         
     def add_DataTable(self, DT):
         import DataTable
@@ -60,6 +61,8 @@ class DataRepository:
         self.__DTs_shapes[name]    = DT.get_shape()
         self.__DTs_summaries[name] = DT.get_summary()
         
+        from numpy import datetime64
+        self.__DTs_register_time[name]   = datetime64('now')
         self.__store_DT_pickle(DT)
         
     def __store_DT_pickle(self, DT):
@@ -77,6 +80,7 @@ class DataRepository:
                        ,self.__DTs_variables
                        ,self.__DTs_shapes
                        ,self.__DTs_summaries
+                       ,self.__DTs_register_time
         )
         for store in setup_dicts:
             del store[DT_name]
@@ -85,7 +89,7 @@ class DataRepository:
         physical_storage_loc = self.__get_DT_site(DT_name)
         
         if not os.path.isfile(physical_storage_loc):
-            raise ValueError("The DataTable's pickle is missing. Critical error!")
+            raise RuntimeError("The DataTable's pickle is missing. Critical error!")
             
         os.remove(physical_storage_loc)
         
@@ -140,6 +144,9 @@ class DataRepository:
     
     def get_summaries(self, DT_name=''):
         return self.__dict_getter_core(self.__DTs_summaries, DT_name=DT_name)
+    
+    def get_register_times(self, DT_name=''):
+        return self.__dict_getter_core(self.__DTs_register_time, DT_name=DT_name)
     
     def __dict_getter_core(self, attribute, DT_name=''):
         if not isinstance(DT_name, str):
