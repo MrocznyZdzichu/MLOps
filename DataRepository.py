@@ -123,7 +123,7 @@ DT_name - a name of the DataTable which we wish to remove.
             
         self.__maintained_DTs.remove(DT_name)
         physical_storage_loc = self.__get_DT_site(DT_name)
-        
+
         if not os.path.isfile(physical_storage_loc):
             raise RuntimeError("The DataTable's pickle is missing. Critical error!")
             
@@ -146,14 +146,17 @@ Its an easy oneliner: call and a pickle is made.
 A method implemeting deleting a repository AND ALL STORED DATATABLES.
 It deletes physically all the pickles from the deployment_dir
         """
-        for stored_data in self.__maintained_DTs:
+        from copy import copy
+        DTs = copy(self.__maintained_DTs)
+
+        for stored_data in DTs:
             self.remove_DataTable(stored_data)
         
         import os
-        selfstorage_path = self.__get_DT_site(self.__reserved_for_this)
-        os.remove(selfstorage_path)
         
-        self = self.__init__(self.__deployment_dir, interactive=0)
+        selfstorage_path = self.__get_DT_site(self.__reserved_for_this)
+        if os.path.isfile(selfstorage_path):
+            os.remove(selfstorage_path)
         
     def get_deployment_dir(self):
         """

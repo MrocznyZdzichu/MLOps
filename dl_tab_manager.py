@@ -1,9 +1,11 @@
 import DataLoader as DL
+import DataRepository as DR
 
 class DL_Tab:
-    def __init__(self, window):
+    def __init__(self, window, repo):
         self.window = window
         self.loader = DL.DataLoader()
+        self.repo   = repo
 
     def load_data(self):
         self.__dl_log_msg('Initiate data loading: ...')
@@ -20,7 +22,7 @@ class DL_Tab:
         try:
             self.__curr_DT = self.loader.load_saved_DT()
         except:
-            self.__dl_mog_msg('An error occured during loading the pickle')
+            self.__dl_log_msg('An error occured during loading the pickle')
         else:
             self.__dl_log_msg('Data loaded successfully')
             self.__dl_post_loading_pb_switch()
@@ -47,6 +49,7 @@ class DL_Tab:
         self.window.dl_pb_clear.setEnabled(1)
         self.window.dl_pb_save_pickle.setEnabled(1)
         self.window.dl_pb_summary.setEnabled(1)
+        self.window.dl_pb_save_repo.setEnabled(1)
 
     def clear_curr_DT(self):
         del self.__curr_DT
@@ -59,3 +62,13 @@ class DL_Tab:
         self.window.dl_pb_clear.setDisabled(1)
         self.window.dl_pb_save_pickle.setDisabled(1)
         self.window.dl_pb_summary.setDisabled(1)
+        self.window.dl_pb_save_repo.setDisabled(1)
+
+    def add2repo(self):
+        self.__dl_log_msg(f'Registering {self.__curr_DT.get_name()} DataTable into the Repository')
+        try:
+            self.repo.add_DataTable(self.__curr_DT)
+        except:
+            self.__dl_log_msg('Registering was unsuccessful :(')
+        else:
+            self.__dl_log_msg('The DataTable was registered successfully')

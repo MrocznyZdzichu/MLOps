@@ -27,7 +27,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="DataLoader_tab">
           <attribute name="title">
@@ -330,7 +330,7 @@
                   <item row="1" column="0" colspan="2">
                    <widget class="QPushButton" name="dr_pb_DT_add">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="text">
                      <string>Add a DataTable</string>
@@ -411,7 +411,7 @@
                  <item>
                   <layout class="QGridLayout" name="gridLayout_13">
                    <item row="2" column="0">
-                    <widget class="QComboBox" name="dr_cb_db_DT_browse"/>
+                    <widget class="QComboBox" name="dr_cb_DT_browse"/>
                    </item>
                    <item row="0" column="1" alignment="Qt::AlignBottom">
                     <widget class="QLabel" name="label_5">
@@ -435,6 +435,9 @@
                    </item>
                    <item row="2" column="1" alignment="Qt::AlignHCenter">
                     <widget class="QPushButton" name="dr_pb_DT_browse">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>100</width>
@@ -489,26 +492,6 @@
                <item row="3" column="1" colspan="2">
                 <widget class="QTextBrowser" name="dr_tb_console"/>
                </item>
-               <item row="1" column="2">
-                <widget class="QPushButton" name="dr_pb_repo_drop">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Drop the Repository</string>
-                 </property>
-                 <property name="flat">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="dr_pb_repo_create">
-                 <property name="text">
-                  <string>Create a Repository</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0" rowspan="2">
                 <spacer name="horizontalSpacer_2">
                  <property name="orientation">
@@ -521,6 +504,31 @@
                   </size>
                  </property>
                 </spacer>
+               </item>
+               <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
+                <widget class="QPushButton" name="dr_pb_repo_drop">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Drop the Repository</string>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -563,7 +571,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>254</y>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>166</x>
@@ -578,8 +586,8 @@
    <slot>load_pickle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>346</x>
-     <y>254</y>
+     <x>446</x>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
@@ -594,8 +602,8 @@
    <slot>clear_curr_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>578</x>
-     <y>178</y>
+     <x>775</x>
+     <y>234</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
@@ -610,8 +618,8 @@
    <slot>save_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>217</y>
+     <x>775</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>533</x>
@@ -626,12 +634,60 @@
    <slot>print_summary()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>262</y>
+     <x>775</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>552</x>
      <y>-30</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dl_pb_save_repo</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_DT_to_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>761</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1068</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dr_pb_repo_drop</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>drop_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>559</x>
+     <y>642</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>561</x>
+     <y>847</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dr_pb_DT_add</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DR_add_DT_to_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>349</y>
     </hint>
    </hints>
   </connection>
@@ -643,5 +699,8 @@
   <slot>clear_curr_DT()</slot>
   <slot>save_DT()</slot>
   <slot>print_summary()</slot>
+  <slot>add_DT_to_repo()</slot>
+  <slot>drop_repo()</slot>
+  <slot>DR_add_DT_to_repo()</slot>
  </slots>
 </ui>
