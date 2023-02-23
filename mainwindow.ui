@@ -691,6 +691,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>dr_pb_DT_remove</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>drop_DT_from_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>220</x>
+     <y>380</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
@@ -702,5 +718,6 @@
   <slot>add_DT_to_repo()</slot>
   <slot>drop_repo()</slot>
   <slot>DR_add_DT_to_repo()</slot>
+  <slot>drop_DT_from_repo()</slot>
  </slots>
 </ui>

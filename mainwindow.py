@@ -64,6 +64,9 @@ class MainWindow(QMainWindow):
     def DR_add_DT_to_repo(self):
         self.DR_manager.add_table()
 
+    def drop_DT_from_repo(self):
+        self.DR_manager.drop_from_repo()
+
 
 if __name__ == "__main__":
     app = QApplication([])

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.2, 2023-02-23T21:04:56. -->
+<!-- Written by QtCreator 7.0.2, 2023-02-23T21:37:31. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -193,6 +193,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">C:/Users/User1/NBs/MLOps/DataRepository.py</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/User1/NBs/MLOps/DataRepository.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/User1/NBs/MLOps/DataRepository.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{5f4429c2-5c78-4067-9f81-67bfd03dd557}</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\User1\NBs\MLOps\DataRepository.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
@@ -210,6 +211,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">C:/Users/User1/NBs/MLOps/dr_tab_manager.py</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/User1/NBs/MLOps/dr_tab_manager.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/User1/NBs/MLOps/dr_tab_manager.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{5f4429c2-5c78-4067-9f81-67bfd03dd557}</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\User1\NBs\MLOps\dr_tab_manager.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
