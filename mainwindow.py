@@ -27,9 +27,9 @@ class MainWindow(QMainWindow):
         self.resize(*self.__tabs_sizes[0])
 
         self.__repo_deployment = 'DataRepository_dir'
-        repo            = DataRepository(interactive=0
-                                        ,deployment_dir=self.__repo_deployment
-                                        )
+        repo = DataRepository(interactive=0
+                            ,deployment_dir=self.__repo_deployment
+        )
         self.DL_manager = DL_Tab(self, repo)
         self.DR_manager = DR_Tab(self, repo)
         self.DR_manager.initialize_tab()
@@ -57,6 +57,7 @@ class MainWindow(QMainWindow):
     def add_DT_to_repo(self):
         self.DL_manager.add2repo()
         self.DR_manager.populate_cbs()
+        self.DR_manager.switch_buttons()
 
     def drop_repo(self):
         self.DR_manager.drop_repo()
@@ -66,6 +67,9 @@ class MainWindow(QMainWindow):
 
     def drop_DT_from_repo(self):
         self.DR_manager.drop_from_repo()
+
+    def DR_browse_DT(self):
+        self.DR_manager.browse_DT()
 
 
 if __name__ == "__main__":
