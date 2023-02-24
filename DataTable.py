@@ -49,7 +49,7 @@ A basic getter method. It returns names of the DataTable's variables
         """
 A basic getter method. It returns a shape of the DataFrame (rows and cols counts)
         """
-        return self._shape
+        return self.__shape
     
     def get_summary(self):
         """

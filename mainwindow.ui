@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>MLOps Platform Interface</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -23,11 +23,11 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="DataLoader_tab">
           <attribute name="title">
@@ -242,6 +242,290 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="DataRepository_tab">
+          <attribute name="title">
+           <string>DataRepository</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,10,2">
+             <property name="leftMargin">
+              <number>25</number>
+             </property>
+             <property name="topMargin">
+              <number>15</number>
+             </property>
+             <property name="rightMargin">
+              <number>25</number>
+             </property>
+             <property name="bottomMargin">
+              <number>15</number>
+             </property>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="dr_le_repo_loc">
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>300</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Repository's location ...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,5">
+               <item>
+                <widget class="QWidget" name="gridWidget_3" native="true">
+                 <layout class="QGridLayout" name="gridLayout_12" rowstretch="1,0,0,1" columnstretch="3,2" columnminimumwidth="0,0">
+                  <item row="2" column="0">
+                   <widget class="QComboBox" name="dr_cb_DT_pick"/>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QPushButton" name="dr_pb_DT_remove">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Drop a DataTable</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="2">
+                   <spacer name="verticalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="3" column="0" colspan="2">
+                   <spacer name="verticalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="1" column="0" colspan="2">
+                   <widget class="QPushButton" name="dr_pb_DT_add">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Add a DataTable</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout" stretch="1,10,6,2,1">
+                 <property name="spacing">
+                  <number>5</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>35</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>35</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>20</number>
+                 </property>
+                 <item>
+                  <spacer name="verticalSpacer_6">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>Data Summary</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextBrowser" name="dr_tb_summary"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_11" rowstretch="1,1,1,1">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_4">
+                     <property name="text">
+                      <string>Shapes</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="dr_le_shapes"/>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_3">
+                     <property name="text">
+                      <string>Variables</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_5">
+                     <property name="text">
+                      <string>Datetime of registering</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLineEdit" name="dr_le_register_dttm"/>
+                   </item>
+                   <item row="1" column="1" rowspan="3">
+                    <widget class="QTextBrowser" name="dr_tb_variables"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_13" columnstretch="1,1">
+                   <item row="0" column="0" rowspan="3">
+                    <widget class="QComboBox" name="dr_cb_DT_browse"/>
+                   </item>
+                   <item row="0" column="1" rowspan="3">
+                    <widget class="QPushButton" name="dr_pb_DT_browse">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>100</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>Get details</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_10" columnstretch="1,1,1,1">
+               <item row="1" column="3">
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="3" column="1" colspan="2">
+                <widget class="QTextBrowser" name="dr_tb_console"/>
+               </item>
+               <item row="1" column="0" rowspan="2">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
+                <widget class="QPushButton" name="dr_pb_repo_drop">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Drop the Repository</string>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -277,7 +561,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>254</y>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>166</x>
@@ -292,8 +576,8 @@
    <slot>load_pickle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>346</x>
-     <y>254</y>
+     <x>446</x>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
@@ -308,8 +592,8 @@
    <slot>clear_curr_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>578</x>
-     <y>178</y>
+     <x>775</x>
+     <y>234</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
@@ -324,8 +608,8 @@
    <slot>save_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>217</y>
+     <x>775</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>533</x>
@@ -340,12 +624,92 @@
    <slot>print_summary()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>262</y>
+     <x>775</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>552</x>
      <y>-30</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dl_pb_save_repo</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_DT_to_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>761</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1068</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dr_pb_repo_drop</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>drop_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>559</x>
+     <y>642</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>561</x>
+     <y>847</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dr_pb_DT_add</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DR_add_DT_to_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dr_pb_DT_remove</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>drop_DT_from_repo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>220</x>
+     <y>380</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dr_pb_DT_browse</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DR_browse_DT()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>782</x>
+     <y>549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>782</x>
+     <y>817</y>
     </hint>
    </hints>
   </connection>
@@ -357,5 +721,10 @@
   <slot>clear_curr_DT()</slot>
   <slot>save_DT()</slot>
   <slot>print_summary()</slot>
+  <slot>add_DT_to_repo()</slot>
+  <slot>drop_repo()</slot>
+  <slot>DR_add_DT_to_repo()</slot>
+  <slot>drop_DT_from_repo()</slot>
+  <slot>DR_browse_DT()</slot>
  </slots>
 </ui>
