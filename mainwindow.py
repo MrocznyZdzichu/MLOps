@@ -4,6 +4,8 @@ from pathlib import Path
 import sys
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtWidgets import QApplication, QWidget
@@ -12,7 +14,6 @@ import qdarkstyle
 
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QFrame
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
 
 from DataRepository import DataRepository
 from dl_tab_manager import DL_Tab
@@ -32,9 +33,11 @@ class MainWindow(QMainWindow):
         self.__tabs_sizes = {
             0 : (480, 320)
             , 1 : (1000, 800)
-            , 2 : (1000, 800)
+            , 2 : (1500, 900)
         }
-        self.resize(*self.__tabs_sizes[0])
+        self.move(80, 45)
+        curr_tab = self.tabWidget.currentIndex()
+        self.resize(*self.__tabs_sizes[curr_tab])
 
         self.__repo_deployment = 'DataRepository_dir'
         repo = DataRepository(interactive=0
@@ -43,19 +46,6 @@ class MainWindow(QMainWindow):
         self.DL_manager = DL_Tab(self, repo)
         self.DR_manager = DR_Tab(self, repo)
         self.DR_manager.initialize_tab()
-
-#        Testy rysowania w tym gownie
-        self.df = pd.DataFrame({'var': np.random.randn(1000)})
-
-        # Ustawienie widgetu z wykresem
-        self.figure = Figure(figsize=(5, 4), dpi=100)
-        self.canvas = FigureCanvas(self.figure)
-        self.ax = self.figure.add_subplot(111)
-        self.ax.hist(self.df['var'], bins=50)
-        self.frame_plot.show()
-        layout = QVBoxLayout()
-        layout.addWidget(self.canvas)
-        self.frame_plot.setLayout(layout)
 
     #UI mainwindow slots do make this shiet live
     def change_size(self, tab_no):
