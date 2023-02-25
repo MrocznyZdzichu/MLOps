@@ -37,6 +37,14 @@ class UnivariateAnalysis:
         self.__valid_var_params(DT, var, 'numeric')
         return DT[var].max()
     
+    def get_uniq_vars_count(self, DT, var):
+        self.__valid_var_params(DT, var, 'character')
+        return df[var].nunique()
+    
+    def get_frequencies(self, DT, var):
+        self.__valid_var_params(DT, var, 'character')
+        return df[var].value_counts().to_dict()
+    
     def plot_histogram(self, DT, var, widget=None):
         self.__valid_var_params(DT, var, 'numeric')
 
