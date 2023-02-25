@@ -27,7 +27,7 @@
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="DataLoader_tab">
           <attribute name="title">
@@ -749,12 +749,28 @@
    <slot>DR_browse_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>782</x>
-     <y>549</y>
+     <x>907</x>
+     <y>560</y>
     </hint>
     <hint type="destinationlabel">
      <x>782</x>
      <y>817</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>center_window(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-7</x>
+     <y>25</y>
     </hint>
    </hints>
   </connection>
@@ -771,5 +787,6 @@
   <slot>DR_add_DT_to_repo()</slot>
   <slot>drop_DT_from_repo()</slot>
   <slot>DR_browse_DT()</slot>
+  <slot>center_window(int)</slot>
  </slots>
 </ui>

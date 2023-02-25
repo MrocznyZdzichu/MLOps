@@ -35,9 +35,10 @@ class MainWindow(QMainWindow):
             , 1 : (1000, 800)
             , 2 : (1500, 900)
         }
-        self.move(80, 45)
+
         curr_tab = self.tabWidget.currentIndex()
         self.resize(*self.__tabs_sizes[curr_tab])
+        self.center_window(curr_tab)
 
         self.__repo_deployment = 'DataRepository_dir'
         repo = DataRepository(interactive=0
@@ -51,6 +52,11 @@ class MainWindow(QMainWindow):
     def change_size(self, tab_no):
         sizes = self.__tabs_sizes[tab_no]
         self.resize(*sizes)
+
+    def center_window(self, tab_no):
+        x_pos = (1920 - self.__tabs_sizes[tab_no][0]) / 2
+        y_pos = (1080 - self.__tabs_sizes[tab_no][1]) / 2
+        self.move(x_pos, y_pos)
 
     def load_data(self):
         self.DL_manager.load_data()
