@@ -18,7 +18,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from DataRepository import DataRepository
 from dl_tab_manager import DL_Tab
 from dr_tab_manager import DR_Tab
-
+from de_tab_manager import DE_Tab
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
         self.__tabs_sizes = {
             0 : (480, 320)
             , 1 : (1000, 800)
-            , 2 : (1500, 900)
+            , 2 : (1800, 900)
         }
 
         curr_tab = self.tabWidget.currentIndex()
@@ -47,6 +47,8 @@ class MainWindow(QMainWindow):
         self.DL_manager = DL_Tab(self, repo)
         self.DR_manager = DR_Tab(self, repo)
         self.DR_manager.initialize_tab()
+        self.DE_manager = DE_Tab(self, repo)
+        self.DE_manager.initialize_tab()
 
     #UI mainwindow slots do make this shiet live
     def change_size(self, tab_no):
@@ -66,6 +68,7 @@ class MainWindow(QMainWindow):
 
     def clear_curr_DT(self):
         self.DL_manager.clear_curr_DT()
+        self.DE_manager.populate_cbs()
 
     def save_DT(self):
         self.DL_manager.save_DT()
@@ -89,6 +92,9 @@ class MainWindow(QMainWindow):
 
     def DR_browse_DT(self):
         self.DR_manager.browse_DT()
+
+    def DE_tab_list_variables(self, selected_DT):
+        self.DE_manager.populate_variables_table(selected_DT)
 
 
 if __name__ == "__main__":

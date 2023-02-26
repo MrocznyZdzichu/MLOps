@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>800</height>
+    <width>1800</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="DataLoader_tab">
           <attribute name="title">
@@ -540,32 +540,73 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab">
+         <widget class="QWidget" name="DataExplorer">
           <attribute name="title">
-           <string>Strona</string>
+           <string>DataExplorer</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="0" column="0">
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="1" column="0">
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>PushButton</string>
-               </property>
-              </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,8">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QComboBox" name="de_cb_data_pick_left"/>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="de_tw_variables"/>
+               </item>
+              </layout>
              </item>
-             <item row="2" column="0">
-              <widget class="QFrame" name="frame_plot">
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QTextEdit" name="textEdit"/>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_4">
+               <item row="0" column="0">
+                <widget class="QComboBox" name="comboBox_2"/>
+               </item>
+               <item row="1" column="0" colspan="3">
+                <widget class="QStackedWidget" name="stackedWidget">
+                 <widget class="QWidget" name="page">
+                  <widget class="QPushButton" name="pushButton_2">
+                   <property name="geometry">
+                    <rect>
+                     <x>240</x>
+                     <y>180</y>
+                     <width>80</width>
+                     <height>24</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>PushButton</string>
+                   </property>
+                  </widget>
+                 </widget>
+                 <widget class="QWidget" name="page_2">
+                  <widget class="QToolButton" name="toolButton">
+                   <property name="geometry">
+                    <rect>
+                     <x>110</x>
+                     <y>170</y>
+                     <width>23</width>
+                     <height>23</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                  </widget>
+                 </widget>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pushButton">
+                 <property name="text">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="comboBox_3"/>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
@@ -606,7 +647,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>326</y>
+     <y>362</y>
     </hint>
     <hint type="destinationlabel">
      <x>166</x>
@@ -621,8 +662,8 @@
    <slot>load_pickle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>446</x>
-     <y>326</y>
+     <x>846</x>
+     <y>362</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
@@ -637,8 +678,8 @@
    <slot>clear_curr_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>775</x>
-     <y>234</y>
+     <x>1375</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
@@ -653,8 +694,8 @@
    <slot>save_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>775</x>
-     <y>294</y>
+     <x>1375</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
      <x>533</x>
@@ -669,8 +710,8 @@
    <slot>print_summary()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>775</x>
-     <y>354</y>
+     <x>1375</x>
+     <y>396</y>
     </hint>
     <hint type="destinationlabel">
      <x>552</x>
@@ -685,8 +726,8 @@
    <slot>add_DT_to_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>761</x>
-     <y>405</y>
+     <x>1375</x>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel">
      <x>1068</x>
@@ -701,8 +742,8 @@
    <slot>drop_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>559</x>
-     <y>642</y>
+     <x>999</x>
+     <y>736</y>
     </hint>
     <hint type="destinationlabel">
      <x>561</x>
@@ -717,8 +758,8 @@
    <slot>DR_add_DT_to_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>348</y>
+     <x>152</x>
+     <y>400</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -733,8 +774,8 @@
    <slot>drop_DT_from_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>220</x>
-     <y>380</y>
+     <x>527</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -749,8 +790,8 @@
    <slot>DR_browse_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>907</x>
-     <y>560</y>
+     <x>1707</x>
+     <y>635</y>
     </hint>
     <hint type="destinationlabel">
      <x>782</x>
@@ -774,6 +815,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>de_cb_data_pick_left</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_tab_list_variables(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>78</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-2</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
@@ -788,5 +845,6 @@
   <slot>drop_DT_from_repo()</slot>
   <slot>DR_browse_DT()</slot>
   <slot>center_window(int)</slot>
+  <slot>DE_tab_list_variables(QString)</slot>
  </slots>
 </ui>
