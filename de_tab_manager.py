@@ -10,6 +10,7 @@ class DE_Tab:
     def __init__(self, window, repo):
         self.window = window
         self.repo   = repo
+
         self.UA     = DE.UnivariateAnalysis()
         self.tools  = ['UnivariateAnalysis']
         self.DE     = DataExplorer.UnivariateAnalysis()

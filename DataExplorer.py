@@ -172,6 +172,7 @@ class UnivariateAnalysis:
 
         fig = plt.figure(facecolor=(20/255,30/255,40/255))
         ax = fig.add_subplot(111)
+        ax.clear()
         fig.subplots_adjust(left=0.15, bottom=0.15, top=0.85, right=0.85)
 
         ax.set_facecolor((20/255, 30/255, 40/255))
@@ -200,8 +201,17 @@ class UnivariateAnalysis:
         from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
         from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
+        if widget.layout() is None:
+            layout = QVBoxLayout()
+            widget.setLayout(layout)
+        else:
+            layout = widget.layout()
+            for i in reversed(range(layout.count())):
+                layout.itemAt(i).widget().setParent(None)
+
         canvas = FigureCanvas(fig)
-        canvas.setParent(widget)
-        layout = QVBoxLayout()
         layout.addWidget(canvas)
-        widget.setLayout(layout)
+
+        # Dodanie NavigationToolbar do layoutu
+        toolbar = NavigationToolbar(canvas, widget)
+        layout.addWidget(toolbar)
