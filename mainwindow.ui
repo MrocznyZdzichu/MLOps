@@ -568,7 +568,7 @@
                      <item>
                       <layout class="QVBoxLayout" name="verticalLayout_12">
                        <item>
-                        <widget class="QFrame" name="frame_5">
+                        <widget class="QFrame" name="de_fr_histogram">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
@@ -578,7 +578,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="frame_6">
+                        <widget class="QFrame" name="de_fr_boxplot">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
@@ -588,7 +588,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="frame_7">
+                        <widget class="QFrame" name="de_fr_serie">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
@@ -604,10 +604,10 @@
                        <item>
                         <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
                          <item>
-                          <widget class="QTableWidget" name="tableWidget_3"/>
+                          <widget class="QTableWidget" name="de_tw_quartiles"/>
                          </item>
                          <item>
-                          <widget class="QTableWidget" name="tableWidget_4"/>
+                          <widget class="QTableWidget" name="de_tw_decils"/>
                          </item>
                         </layout>
                        </item>

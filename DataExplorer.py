@@ -168,6 +168,8 @@ class UnivariateAnalysis:
 
     def __prepare_plot(self, x_desc, y_desc):
         import matplotlib.pyplot as plt
+        plt.switch_backend('Qt5Agg')
+
         fig = plt.figure(facecolor=(20/255,30/255,40/255))
         ax = fig.add_subplot(111)
         fig.subplots_adjust(left=0.15, bottom=0.15, top=0.85, right=0.85)
@@ -196,6 +198,7 @@ class UnivariateAnalysis:
         from matplotlib.figure import Figure
         from PyQt5.QtWidgets import QVBoxLayout
         from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+        from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
         canvas = FigureCanvas(fig)
         canvas.setParent(widget)

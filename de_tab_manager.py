@@ -81,7 +81,6 @@ class DE_Tab:
 
         if data != '' and tool == 'UnivariateAnalysis':
             variables = self.repo.get_variables(DT_name=data)
-
             self.window.de_cb_UA_var.clear()
             self.window.de_cb_UA_var.addItems(variables)
 
@@ -149,3 +148,62 @@ class DE_Tab:
         self.window.de_le_std_2.setText(str(stddev))
         self.window.de_le_min_2.setText(str(min))
         self.window.de_le_max_2.setText(str(max))
+
+        quartiles = self.__compute_quartiles(DT, variable)
+        self.__put_quartiles_into_tw(quartiles)
+        decils    = self.__compute_decils(DT, variable)
+        self.__put_decils_into_tw(decils)
+
+        self.DE.plot_histogram(DT, variable, self.window.de_fr_histogram)
+        self.DE.plot_boxplot(DT, variable, self.window.de_fr_boxplot)
+        self.DE.plot_values(DT, variable, self.window.de_fr_serie)
+
+    def __compute_quartiles(self, DT, variable):
+        quartiles = []
+        for i in range(0, 3):
+            quartiles.append(self.DE.get_quantile(DT, variable, q=i*0.25))
+        return quartiles
+
+    def __put_quartiles_into_tw(self, quartiles):
+        self.window.de_tw_quartiles.clearContents()
+        self.window.de_tw_quartiles.setRowCount(3)
+        self.window.de_tw_quartiles.setColumnCount(2)
+
+        headers = ("No of quartile", "Quartile's value")
+        self.window.de_tw_quartiles.setHorizontalHeaderLabels(headers)
+
+        for i in range(0, 3):
+            quartile_no    = i+1
+            item = QTableWidgetItem(str(quartile_no))
+            self.window.de_tw_quartiles.setItem(i, 0, item)
+
+            quartile_value = quartiles[i]
+            item = QTableWidgetItem(str(quartile_value))
+            self.window.de_tw_quartiles.setItem(i, 1, item)
+
+        self.window.de_tw_quartiles.resizeColumnsToContents()
+
+    def __compute_decils(self, DT, variable):
+        decils = []
+        for i in range(0, 9):
+            decils.append(self.DE.get_quantile(DT, variable, q=i*0.1))
+        return decils
+
+    def __put_decils_into_tw(self, decils):
+        self.window.de_tw_decils.clearContents()
+        self.window.de_tw_decils.setRowCount(9)
+        self.window.de_tw_decils.setColumnCount(2)
+
+        headers = ("No of a decile", "The decils's value")
+        self.window.de_tw_decils.setHorizontalHeaderLabels(headers)
+
+        for i in range(0, 9):
+            decile_no    = i+1
+            item = QTableWidgetItem(str(decile_no))
+            self.window.de_tw_decils.setItem(i, 0, item)
+
+            decile_value = decils[i]
+            item = QTableWidgetItem(str(decile_value))
+            self.window.de_tw_decils.setItem(i, 1, item)
+
+        self.window.de_tw_decils.resizeColumnsToContents()
