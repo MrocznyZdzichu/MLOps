@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
 
     def center_window(self, tab_no):
         x_pos = (1920 - self.__tabs_sizes[tab_no][0]) / 2
-        y_pos = (1080 - self.__tabs_sizes[tab_no][1]) / 2
+        y_pos = (1080 - self.__tabs_sizes[tab_no][1]) / 4
         self.move(x_pos, y_pos)
 
     def load_data(self):
@@ -95,6 +95,17 @@ class MainWindow(QMainWindow):
 
     def DE_tab_list_variables(self, selected_DT):
         self.DE_manager.populate_variables_table(selected_DT)
+        self.DE_manager.populate_UA_cb()
+
+    def DE_set_cbs_for_tool(self, selected_DE_tool):
+        self.DE_manager.set_cbs_for_tool(selected_DE_tool)
+        self.DE_manager.populate_UA_cb()
+
+    def DE_set_UA_sw(self, variable):
+        self.DE_manager.set_UA_sw(variable)
+
+    def DE_exploration(self):
+        self.DE_manager.exploration()
 
 
 if __name__ == "__main__":
