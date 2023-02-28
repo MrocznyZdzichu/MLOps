@@ -568,7 +568,7 @@
                      <item>
                       <layout class="QVBoxLayout" name="verticalLayout_12">
                        <item>
-                        <widget class="QFrame" name="de_fr_histogram">
+                        <widget class="QFrame" name="de_fr_plot">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
@@ -578,24 +578,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="de_fr_boxplot">
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QFrame" name="de_fr_serie">
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                        </widget>
+                        <widget class="QComboBox" name="de_cb_plot_selector"/>
                        </item>
                       </layout>
                      </item>
@@ -1064,6 +1047,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>de_cb_plot_selector</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_replot_(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>536</x>
+     <y>823</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>901</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
@@ -1082,5 +1081,6 @@
   <slot>DE_exploration()</slot>
   <slot>DE_set_cbs_for_tool(QString)</slot>
   <slot>DE_set_UA_sw(QString)</slot>
+  <slot>DE_replot_(QString)</slot>
  </slots>
 </ui>

@@ -11,14 +11,14 @@ class DE_Tab:
         self.window = window
         self.repo   = repo
 
-        self.UA     = DE.UnivariateAnalysis()
-        self.tools  = ['UnivariateAnalysis']
-        self.DE     = DataExplorer.UnivariateAnalysis()
+        self.UA               = DE.UnivariateAnalysis()
+        self.tools            = ['UnivariateAnalysis']
+        self.UA_numeric_plots = ['Histogram', 'Boxplot', "Values' chart"]
 
     def initialize_tab(self):
-        pass
         self.populate_cbs_with_tables()
         self.__populate_exploration_tools()
+        self.__populate_cb_UA_num_plot()
 
     def populate_cbs_with_tables(self):
         tables = self.repo.get_maintained_DTs()
@@ -120,17 +120,35 @@ class DE_Tab:
             var_type = self.__get_var_type(DT_explored, variable)
             if var_type == 'numeric':
                 self.__UA_numeric(DT, variable)
+
             elif var_type == 'character':
                 self.__UA_character(DT, variable)
+
+    def replot_numeric(self, plot_type):
+        DT_name = self.window.de_cb_data_pick_left.currentText()
+        if DT_name == '':
+            return
+
+        DT = self.repo.get_DT(DT_name)
+
+        var = self.window.de_cb_UA_var.currentText()
+        if var == '':
+            return
+
+        self.__generate_numeric_plot(DT, var, self.window.de_fr_plot, plot_type)
 
     def __populate_exploration_tools(self):
         self.window.de_cb_tools.clear()
         self.window.de_cb_tools.addItem('')
         self.window.de_cb_tools.addItems(self.tools)
 
+    def __populate_cb_UA_num_plot(self):
+        self.window.de_cb_plot_selector.clear()
+        self.window.de_cb_plot_selector.addItems(self.UA_numeric_plots)
+
     def __get_var_type(self, table_name, variable):
         DT       = self.repo.get_DT(DT_name=table_name)
-        var_type = self.DE.get_var_type(DT, variable)
+        var_type = self.UA.get_var_type(DT, variable)
         type_shorten = {
             "A numeric variable"    : "numeric"
             ,"A character variable" : "character"
@@ -138,12 +156,12 @@ class DE_Tab:
         return type_shorten[var_type]
 
     def __UA_numeric(self, DT, variable):
-        mean   = self.DE.get_mean(DT, variable)
-        median = self.DE.get_median(DT, variable)
-        stddev = self.DE.get_stddev(DT, variable)
-        min    = self.DE.get_min(DT, variable)
-        max    = self.DE.get_max(DT, variable)
-        nans   = self.DE.get_nan_count(DT, variable)
+        mean   = self.UA.get_mean(DT, variable)
+        median = self.UA.get_median(DT, variable)
+        stddev = self.UA.get_stddev(DT, variable)
+        min    = self.UA.get_min(DT, variable)
+        max    = self.UA.get_max(DT, variable)
+        nans   = self.UA.get_nan_count(DT, variable)
 
         self.window.de_le_mean_2.setText(str(mean))
         self.window.de_le_median_2.setText(str(median))
@@ -157,24 +175,24 @@ class DE_Tab:
         decils    = self.__compute_decils(DT, variable)
         self.__put_decils_into_tw(decils)
 
-        self.DE.plot_histogram(DT, variable, self.window.de_fr_histogram)
-        self.DE.plot_boxplot(DT, variable, self.window.de_fr_boxplot)
-        self.DE.plot_values(DT, variable, self.window.de_fr_serie)
+        current_plot = self.window.de_cb_plot_selector.currentText()
+        if current_plot in self.UA_numeric_plots:
+            self.__generate_numeric_plot(DT, variable, self.window.de_fr_plot, current_plot)
 
     def __UA_character(self, DT, variable):
-        unique_counts = self.DE.get_uniq_vars_count(DT, variable)
-        frequencies    = self.DE.get_frequencies(DT, variable)
+        unique_counts = self.UA.get_uniq_vars_count(DT, variable)
+        frequencies    = self.UA.get_frequencies(DT, variable)
 
         self.window.de_le_uniqs.setText(str(unique_counts))
         self.__put_freqs_into_tw(frequencies)
 
-        self.DE.plot_barplot(DT, variable, self.window.de_fr_bar)
-        self.DE.plot_piechart(DT, variable, self.window.de_fr_pie)
+        self.UA.plot_barplot(DT, variable, self.window.de_fr_bar)
+        self.UA.plot_piechart(DT, variable, self.window.de_fr_pie)
 
     def __compute_quartiles(self, DT, variable):
         quartiles = []
         for i in range(0, 3):
-            quartiles.append(self.DE.get_quantile(DT, variable, q=i*0.25))
+            quartiles.append(self.UA.get_quantile(DT, variable, q=i*0.25))
         return quartiles
 
     def __put_quartiles_into_tw(self, quartiles):
@@ -199,7 +217,7 @@ class DE_Tab:
     def __compute_decils(self, DT, variable):
         decils = []
         for i in range(0, 9):
-            decils.append(self.DE.get_quantile(DT, variable, q=i*0.1))
+            decils.append(self.UA.get_quantile(DT, variable, q=i*0.1))
         return decils
 
     def __put_decils_into_tw(self, decils):
@@ -241,3 +259,11 @@ class DE_Tab:
             row += 1
 
         self.window.de_tw_freqs.resizeColumnsToContents()
+
+    def __generate_numeric_plot(self, DT, variable, widget, current_plot):
+        if current_plot == 'Histogram':
+            self.UA.plot_histogram(DT, variable, widget)
+        elif current_plot == 'Boxplot':
+            self.UA.plot_boxplot(DT, variable, widget)
+        else: #Values' plot
+            self.UA.plot_values(DT, variable, widget)

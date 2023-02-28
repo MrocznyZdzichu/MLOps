@@ -107,6 +107,11 @@ class MainWindow(QMainWindow):
     def DE_exploration(self):
         self.DE_manager.exploration()
 
+    def DE_replot_(self, plot_type):
+        if plot_type == '':
+            return
+        self.DE_manager.replot_numeric(plot_type)
+
 
 if __name__ == "__main__":
     app = QApplication([])
