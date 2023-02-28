@@ -68,7 +68,6 @@ class MainWindow(QMainWindow):
 
     def clear_curr_DT(self):
         self.DL_manager.clear_curr_DT()
-        self.DE_manager.populate_cbs()
 
     def save_DT(self):
         self.DL_manager.save_DT()
