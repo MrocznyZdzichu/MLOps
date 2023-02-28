@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>800</height>
+    <width>1800</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MLOps Platform Interface</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_4">
-    <item row="0" column="0">
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <item>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -23,11 +23,11 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="DataLoader_tab">
           <attribute name="title">
@@ -394,7 +394,14 @@
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLineEdit" name="dr_le_shapes"/>
+                    <widget class="QLineEdit" name="dr_le_shapes">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="0" column="1">
                     <widget class="QLabel" name="label_3">
@@ -411,7 +418,14 @@
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLineEdit" name="dr_le_register_dttm"/>
+                    <widget class="QLineEdit" name="dr_le_register_dttm">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="1" column="1" rowspan="3">
                     <widget class="QTextBrowser" name="dr_tb_variables"/>
@@ -526,6 +540,246 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="DataExplorer">
+          <attribute name="title">
+           <string>DataExplorer</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,8">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QComboBox" name="de_cb_data_pick_left"/>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="de_tw_variables"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_4" rowstretch="1,10" columnstretch="1,2,1">
+               <item row="1" column="0" colspan="3">
+                <widget class="QStackedWidget" name="de_sw_explorations">
+                 <widget class="QWidget" name="UA_numeric">
+                  <layout class="QHBoxLayout" name="horizontalLayout_8">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,2">
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_12">
+                       <item>
+                        <widget class="QFrame" name="de_fr_plot">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="de_cb_plot_selector"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_13" stretch="2,1">
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
+                         <item>
+                          <widget class="QTableWidget" name="de_tw_quartiles"/>
+                         </item>
+                         <item>
+                          <widget class="QTableWidget" name="de_tw_decils"/>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QGridLayout" name="gridLayout_7">
+                         <item row="0" column="0" alignment="Qt::AlignBottom">
+                          <widget class="QLabel" name="label_11">
+                           <property name="text">
+                            <string>Mean value</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="0" alignment="Qt::AlignBottom">
+                          <widget class="QLabel" name="label_12">
+                           <property name="text">
+                            <string>Min. value</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="1" alignment="Qt::AlignBottom">
+                          <widget class="QLabel" name="label_13">
+                           <property name="text">
+                            <string>Max. value</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="1">
+                          <widget class="QLineEdit" name="de_le_median_2">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1" alignment="Qt::AlignBottom">
+                          <widget class="QLabel" name="label_14">
+                           <property name="text">
+                            <string>Median value</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="3" column="0">
+                          <widget class="QLineEdit" name="de_le_min_2">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="0">
+                          <widget class="QLineEdit" name="de_le_mean_2">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="0" alignment="Qt::AlignBottom">
+                          <widget class="QLabel" name="label_15">
+                           <property name="text">
+                            <string>Standard deviation</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="1" alignment="Qt::AlignBottom">
+                          <widget class="QLabel" name="label_16">
+                           <property name="text">
+                            <string>Count of NaNs</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="3" column="1">
+                          <widget class="QLineEdit" name="de_le_max_2">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="0">
+                          <widget class="QLineEdit" name="de_le_std_2">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="1">
+                          <widget class="QLineEdit" name="de_le_nan_2">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="UA_character">
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+                     <item>
+                      <widget class="QFrame" name="de_fr_pie">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,1">
+                       <item row="2" column="1">
+                        <widget class="QLineEdit" name="de_le_uniqs"/>
+                       </item>
+                       <item row="1" column="1" alignment="Qt::AlignBottom">
+                        <widget class="QLabel" name="label_2">
+                         <property name="text">
+                          <string>Count of unique values</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="0" rowspan="2">
+                        <widget class="QTableWidget" name="de_tw_freqs"/>
+                       </item>
+                       <item row="0" column="0" colspan="2">
+                        <widget class="QFrame" name="de_fr_bar">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="de_pb_explore">
+                 <property name="text">
+                  <string>Explore!</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QComboBox" name="de_cb_tools"/>
+               </item>
+               <item row="0" column="1">
+                <widget class="QStackedWidget" name="de_sw_tools">
+                 <widget class="QWidget" name="UA_tool">
+                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_6">
+                     <item>
+                      <widget class="QComboBox" name="de_cb_UA_var"/>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="BA_tool">
+                  <layout class="QVBoxLayout" name="verticalLayout_17">
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_16">
+                     <item>
+                      <widget class="QComboBox" name="comboBox_2"/>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="comboBox_3"/>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -561,7 +815,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>326</y>
+     <y>362</y>
     </hint>
     <hint type="destinationlabel">
      <x>166</x>
@@ -576,8 +830,8 @@
    <slot>load_pickle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>446</x>
-     <y>326</y>
+     <x>846</x>
+     <y>362</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
@@ -592,8 +846,8 @@
    <slot>clear_curr_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>775</x>
-     <y>234</y>
+     <x>1375</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
@@ -608,8 +862,8 @@
    <slot>save_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>775</x>
-     <y>294</y>
+     <x>1375</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
      <x>533</x>
@@ -624,8 +878,8 @@
    <slot>print_summary()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>775</x>
-     <y>354</y>
+     <x>1375</x>
+     <y>396</y>
     </hint>
     <hint type="destinationlabel">
      <x>552</x>
@@ -640,8 +894,8 @@
    <slot>add_DT_to_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>761</x>
-     <y>405</y>
+     <x>1375</x>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel">
      <x>1068</x>
@@ -656,8 +910,8 @@
    <slot>drop_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>559</x>
-     <y>642</y>
+     <x>999</x>
+     <y>736</y>
     </hint>
     <hint type="destinationlabel">
      <x>561</x>
@@ -672,8 +926,8 @@
    <slot>DR_add_DT_to_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>348</y>
+     <x>152</x>
+     <y>400</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -688,8 +942,8 @@
    <slot>drop_DT_from_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>220</x>
-     <y>380</y>
+     <x>527</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -704,12 +958,108 @@
    <slot>DR_browse_DT()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>782</x>
-     <y>549</y>
+     <x>1707</x>
+     <y>635</y>
     </hint>
     <hint type="destinationlabel">
      <x>782</x>
      <y>817</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>center_window(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-7</x>
+     <y>25</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>de_cb_data_pick_left</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_tab_list_variables(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>78</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-2</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>de_pb_explore</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_exploration()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1557</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1413</x>
+     <y>-36</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>de_cb_tools</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_set_cbs_for_tool(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>606</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>-21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>de_cb_UA_var</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_set_UA_sw(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>881</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>882</x>
+     <y>-20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>de_cb_plot_selector</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_replot_(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>536</x>
+     <y>823</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>901</y>
     </hint>
    </hints>
   </connection>
@@ -726,5 +1076,11 @@
   <slot>DR_add_DT_to_repo()</slot>
   <slot>drop_DT_from_repo()</slot>
   <slot>DR_browse_DT()</slot>
+  <slot>center_window(int)</slot>
+  <slot>DE_tab_list_variables(QString)</slot>
+  <slot>DE_exploration()</slot>
+  <slot>DE_set_cbs_for_tool(QString)</slot>
+  <slot>DE_set_UA_sw(QString)</slot>
+  <slot>DE_replot_(QString)</slot>
  </slots>
 </ui>
