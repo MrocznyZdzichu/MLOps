@@ -120,6 +120,8 @@ class DE_Tab:
             var_type = self.__get_var_type(DT_explored, variable)
             if var_type == 'numeric':
                 self.__UA_numeric(DT, variable)
+            elif var_type == 'character':
+                self.__UA_character(DT, variable)
 
     def __populate_exploration_tools(self):
         self.window.de_cb_tools.clear()
@@ -158,6 +160,16 @@ class DE_Tab:
         self.DE.plot_histogram(DT, variable, self.window.de_fr_histogram)
         self.DE.plot_boxplot(DT, variable, self.window.de_fr_boxplot)
         self.DE.plot_values(DT, variable, self.window.de_fr_serie)
+
+    def __UA_character(self, DT, variable):
+        unique_counts = self.DE.get_uniq_vars_count(DT, variable)
+        frequencies    = self.DE.get_frequencies(DT, variable)
+
+        self.window.de_le_uniqs.setText(str(unique_counts))
+        self.__put_freqs_into_tw(frequencies)
+
+        self.DE.plot_barplot(DT, variable, self.window.de_fr_bar)
+        self.DE.plot_piechart(DT, variable, self.window.de_fr_pie)
 
     def __compute_quartiles(self, DT, variable):
         quartiles = []
@@ -208,3 +220,24 @@ class DE_Tab:
             self.window.de_tw_decils.setItem(i, 1, item)
 
         self.window.de_tw_decils.resizeColumnsToContents()
+
+    def __put_freqs_into_tw(self, frequencies):
+        row_count = len(frequencies.keys())
+
+        self.window.de_tw_freqs.clearContents()
+        self.window.de_tw_freqs.setRowCount(row_count)
+        self.window.de_tw_freqs.setColumnCount(2)
+
+        headers = ('Value', "Value's frequency")
+        self.window.de_tw_freqs.setHorizontalHeaderLabels(headers)
+
+        row = 0
+        for value in frequencies.keys():
+            item = QTableWidgetItem(str(value))
+            self.window.de_tw_freqs.setItem(row, 0, item)
+
+            item = QTableWidgetItem(str(frequencies[value]))
+            self.window.de_tw_freqs.setItem(row, 1, item)
+            row += 1
+
+        self.window.de_tw_freqs.resizeColumnsToContents()

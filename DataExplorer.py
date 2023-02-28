@@ -58,7 +58,7 @@ class UnivariateAnalysis:
         df = DT.get_core()
 
         fig, ax = self.__prepare_plot(f'Variable {var}', 'Occurences')
-        ax.hist(df[var], color='red')
+        ax.hist(df[var])
         self.__format_ticks(ax, axis='x', angle=45)
 
         if widget!=None:
@@ -73,12 +73,12 @@ class UnivariateAnalysis:
 
         fig, ax = self.__prepare_plot('', f'Variable {var}')
         ax.boxplot(df[var]
-                  ,boxprops={'color' : 'red'}
-                  ,flierprops=dict(marker='.', markerfacecolor='r', markersize=2,
-                                   linestyle='none', markeredgecolor='r')
-                  ,medianprops={'color' : 'red'}
-                  ,whiskerprops={'color' : 'red'}
-                  ,capprops={'color' : 'red'}
+                  ,boxprops={'color' : 'blue'}
+                  ,flierprops=dict(marker='.', markerfacecolor='blue', markersize=2,
+                                   linestyle='none', markeredgecolor='blue')
+                  ,medianprops={'color' : 'blue'}
+                  ,whiskerprops={'color' : 'blue'}
+                  ,capprops={'color' : 'blue'}
                   )
 
         self.__format_ticks(ax)
@@ -93,7 +93,7 @@ class UnivariateAnalysis:
         df = DT.get_core()
 
         fig, ax =self.__prepare_plot('', f'Variable {var}')
-        ax.plot(df[var], color='red')
+        ax.plot(df[var])
         self.__format_ticks(ax)
 
         if widget!=None:
@@ -107,12 +107,11 @@ class UnivariateAnalysis:
         df = DT.get_core()
 
         freq = df[var].value_counts()
-        print(freq)
         if len(freq) > 7:
             freq = freq.nlargest(7)
             freq['Others'] = df[var].count() - freq.sum()
 
-        fig, ax = self.__prepare_plot('', '')
+        fig, ax = self.__prepare_plot(f"{var}'s value", 'Frequency')
         ax.bar(freq.index, freq.values)
         self.__format_ticks(ax, axis='x', angle=45, decimal=False)
 
@@ -173,7 +172,7 @@ class UnivariateAnalysis:
         fig = plt.figure(facecolor=(20/255,30/255,40/255))
         ax = fig.add_subplot(111)
         ax.clear()
-        fig.subplots_adjust(left=0.15, bottom=0.15, top=0.85, right=0.85)
+        fig.subplots_adjust(left=0.15, bottom=0.20, top=0.95, right=0.95)
 
         ax.set_facecolor((20/255, 30/255, 40/255))
         ax.tick_params(axis='both', which='both', colors='white')
