@@ -76,7 +76,7 @@ class UnivariateAnalysis:
                   ,boxprops={'color' : 'blue'}
                   ,flierprops=dict(marker='.', markerfacecolor='blue', markersize=2,
                                    linestyle='none', markeredgecolor='blue')
-                  ,medianprops={'color' : 'blue'}
+                  ,medianprops={'color' : 'red'}
                   ,whiskerprops={'color' : 'blue'}
                   ,capprops={'color' : 'blue'}
                   )

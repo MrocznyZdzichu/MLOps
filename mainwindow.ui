@@ -926,7 +926,7 @@
    <slot>DR_add_DT_to_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
+     <x>164</x>
      <y>400</y>
     </hint>
     <hint type="destinationlabel">
@@ -942,7 +942,7 @@
    <slot>drop_DT_from_repo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>527</x>
+     <x>444</x>
      <y>430</y>
     </hint>
     <hint type="destinationlabel">
@@ -1006,8 +1006,8 @@
    <slot>DE_exploration()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1557</x>
-     <y>98</y>
+     <x>1556</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>1413</x>
@@ -1022,8 +1022,8 @@
    <slot>DE_set_cbs_for_tool(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>606</x>
-     <y>91</y>
+     <x>609</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>611</x>
@@ -1038,8 +1038,8 @@
    <slot>DE_set_UA_sw(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>881</x>
-     <y>100</y>
+     <x>937</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>882</x>
@@ -1054,8 +1054,8 @@
    <slot>DE_replot_(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>536</x>
-     <y>823</y>
+     <x>620</x>
+     <y>834</y>
     </hint>
     <hint type="destinationlabel">
      <x>528</x>
