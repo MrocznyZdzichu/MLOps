@@ -1,3 +1,4 @@
+import GUI_utils
 from DataRepository import DataRepository
 from DataLoader import DataLoader
 
@@ -9,9 +10,12 @@ class DR_Tab:
     def initialize_tab(self):
         self.populate_cbs()
         self.switch_buttons()
-        self.window.dr_le_repo_loc.setText(
-            self.repo.get_deployment_dir()
-        )
+
+        deployment_dir = self.repo.get_deployment_dir()
+        deploy_dir_le  = self.window.dr_le_repo_loc
+
+        GUI_utils.set_lineEdit_text(deploy_dir_le
+                                    ,deployment_dir)
 
     def drop_repo(self):
         try:
@@ -66,10 +70,12 @@ class DR_Tab:
         }
 
         for textBrowser in tbs_texts.keys():
-            textBrowser.setText(tbs_texts[textBrowser])
+            msg = tbs_texts[textBrowser]
+            GUI_utils.textBrowser_setMsg(textBrowser, msg)
 
     def __log_on_console(self, msg):
-        self.window.dr_tb_console.append(msg)
+        console = self.window.dr_tb_console
+        GUI_utils.textBrowser_append(console, msg)
 
     def __list_variables(self, DT):
         variables = self.repo.get_variables(DT_name=DT)
@@ -84,15 +90,15 @@ class DR_Tab:
 
     def populate_cbs(self):
         available_DTs = self.repo.get_maintained_DTs()
-        self.window.dr_cb_DT_pick.clear()
-        self.window.dr_cb_DT_browse.clear()
-        self.window.dr_cb_DT_pick.addItems(available_DTs)
-        self.window.dr_cb_DT_browse.addItems(available_DTs)
+        GUI_utils.populate_comboBox(self.window.dr_cb_DT_pick, available_DTs)
+        GUI_utils.populate_comboBox(self.window.dr_cb_DT_browse, available_DTs)
 
     def switch_buttons(self):
-        if len(self.repo.get_maintained_DTs()) > 0:
-            self.window.dr_pb_DT_remove.setEnabled(1)
-            self.window.dr_pb_DT_browse.setEnabled(1)
-        else:
-            self.window.dr_pb_DT_remove.setDisabled(1)
-            self.window.dr_pb_DT_browse.setDisabled(1)
+        buttons  = (self.window.dr_pb_DT_remove, self.window.dr_pb_DT_browse)
+        DT_count = len(self.repo.get_maintained_DTs())
+
+        for pb in buttons:
+            if DT_count > 0:
+                GUI_utils.enable_pushButton(pb)
+            else:
+                GUI_utils.disable_pushButton(pb)
