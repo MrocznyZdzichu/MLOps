@@ -94,14 +94,14 @@ class MainWindow(QMainWindow):
 
     def DE_tab_list_variables(self, selected_DT):
         self.DE_manager.populate_variables_table(selected_DT)
-        self.DE_manager.populate_UA_cb()
+        self.DE_manager.UA_manager.populate_UA_cb()
 
     def DE_set_cbs_for_tool(self, selected_DE_tool):
         self.DE_manager.set_cbs_for_tool(selected_DE_tool)
-        self.DE_manager.populate_UA_cb()
+        self.DE_manager.UA_manager.populate_UA_cb()
 
     def DE_set_UA_sw(self, variable):
-        self.DE_manager.set_UA_sw(variable)
+        self.DE_manager.UA_manager.set_UA_sw(variable)
 
     def DE_exploration(self):
         self.DE_manager.exploration()
@@ -109,7 +109,7 @@ class MainWindow(QMainWindow):
     def DE_replot_(self, plot_type):
         if plot_type == '':
             return
-        self.DE_manager.replot_numeric(plot_type)
+        self.DE_manager.UA_manager.replot_numeric(plot_type)
 
 
 if __name__ == "__main__":
