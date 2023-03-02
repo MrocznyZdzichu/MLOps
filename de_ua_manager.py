@@ -62,7 +62,7 @@ class UA_manager:
 
     def __get_var_type(self, table_name, variable):
         DT       = self.repo.get_DT(DT_name=table_name)
-        var_type = self.UA.get_var_type(DT, variable)
+        var_type = DE.get_var_type(DT, variable)
         type_shorten = {
             "A numeric variable"    : "numeric"
             ,"A character variable" : "character"

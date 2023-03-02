@@ -98,7 +98,10 @@ class MainWindow(QMainWindow):
 
     def DE_set_cbs_for_tool(self, selected_DE_tool):
         self.DE_manager.set_cbs_for_tool(selected_DE_tool)
-        self.DE_manager.UA_manager.populate_UA_cb()
+        if selected_DE_tool == 'UnivariateAnalysis':
+            self.DE_manager.UA_manager.populate_UA_cb()
+        elif selected_DE_tool == 'BivariateAnalysis':
+            self.DE_manager.BA_manager.populate_BA_cbs()
 
     def DE_set_UA_sw(self, variable):
         self.DE_manager.UA_manager.set_UA_sw(variable)

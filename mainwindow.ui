@@ -763,10 +763,10 @@
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_16">
                      <item>
-                      <widget class="QComboBox" name="comboBox_2"/>
+                      <widget class="QComboBox" name="de_cb_BA_var1"/>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="comboBox_3"/>
+                      <widget class="QComboBox" name="de_cb_BA_var2"/>
                      </item>
                     </layout>
                    </item>
