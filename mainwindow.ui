@@ -733,6 +733,99 @@
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QWidget" name="BA_num_vs_num">
+                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,1">
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_10" stretch="1,1">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_11" stretch="1,0,0,0,0,0,0">
+                         <property name="leftMargin">
+                          <number>35</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>35</number>
+                         </property>
+                         <item alignment="Qt::AlignVCenter">
+                          <widget class="QComboBox" name="de_ba_corr_cb"/>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_7">
+                           <property name="text">
+                            <string>Cross-correlation's shifts</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="de_le_shifts"/>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_8">
+                           <property name="text">
+                            <string>Columns for a correlations' heatmap</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QListWidget" name="de_lw_columns"/>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_6">
+                           <property name="text">
+                            <string>Correlation's value</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="de_le_corr">
+                           <property name="readOnly">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="de_fr_scatter">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,1">
+                       <item>
+                        <widget class="QFrame" name="de_fr_crosscorr">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="de_fr_heatmap">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
                <item row="0" column="2">
@@ -1063,6 +1156,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>de_cb_BA_var1</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_set_BA_sw(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>850</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>835</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>de_cb_BA_var2</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_set_BA_sw(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>893</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>886</x>
+     <y>7</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
@@ -1082,5 +1207,6 @@
   <slot>DE_set_cbs_for_tool(QString)</slot>
   <slot>DE_set_UA_sw(QString)</slot>
   <slot>DE_replot_(QString)</slot>
+  <slot>DE_set_BA_sw(QString)</slot>
  </slots>
 </ui>

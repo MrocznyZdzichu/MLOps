@@ -13,6 +13,9 @@ def disable_pushButton(pb):
 def enable_pushButton(pb):
     pb.setEnabled(1)
 
+def clear_comboBox(cb):
+    cb.clear()
+
 def populate_comboBox(cb, values, empty_first=False):
     cb.clear()
     if empty_first == True:
@@ -21,6 +24,12 @@ def populate_comboBox(cb, values, empty_first=False):
 
 def set_lineEdit_text(le, text):
     le.setText(text)
+
+def clear_lineEdit(le):
+    le.clear()
+
+def clear_listWidget(lw):
+    lw.clear()
 
 def populate_tableWidget(tw, data2D, headers=None):
     row_count = len(data2D)

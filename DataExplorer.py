@@ -148,46 +148,62 @@ class BivariateAnalysis:
         else:
             fig.show()
 
-    def get_crosscorrelation(self, DT, x, y, norm=False):
+    def get_crosscorrelation(self, DT, x, y, n_shifts=None, norm=False):
         import numpy as np
 
         df = DT.get_core()
-        cross_corr = np.correlate(df[x], df[y], mode='same')
+        if n_shifts == None:
+            n_shifts = len(df[x])
+
+        shift_end = n_shifts
+        shift_start = -1*n_shifts
+
+        cross_corr = np.zeros(shift_end - shift_start + 1)
+
+        for i in range(shift_start, shift_end+1):
+            if i < 0:
+                cross_corr[i-shift_start] = np.correlate(df[x], np.roll(df[y], abs(i)), mode='valid')
+            else:
+                cross_corr[i-shift_start] = np.correlate(np.roll(df[x], i), df[y], mode='valid')
+
+        shifts = np.arange(shift_start, shift_end+1)
+
         if norm == True:
             cross_corr = cross_corr / np.max(cross_corr)
 
-        max_shift = len(cross_corr) // 2
-        shifts = np.arange(-max_shift, max_shift+1)
-
         return shifts, cross_corr
 
-    def plot_crosscorrelation(self, DT, x, y, norm=False, widget=None):
+    def plot_crosscorrelation(self, DT, x, y, n_shifts=None, norm=False, widget=None):
         valid_var_params(DT, y, 'numeric')
         valid_var_params(DT, x, 'numeric')
 
-        shifts, cross_corr = self.get_crosscorrelation(DT, x, y, norm)
+        shifts, cross_corr = self.get_crosscorrelation(DT, x, y,
+                                                        n_shifts=n_shifts,
+                                                        norm=norm)
 
         fig, ax = prepare_plot(f'Timeshifts [sample]', 'Cross-correlation')
         ax.plot(shifts, cross_corr)
 
-#        format_ticks(ax)
         if widget!=None:
             export_plot_to_Qt(fig, widget)
         else:
             fig.show()
 
-    def plot_corr_heatmap(self, DT, widget=None):
+    def plot_corr_heatmap(self, DT, cols=None, widget=None, method='pearson'):
         import numpy as np
         import matplotlib.pyplot as plt
 
         df = DT.get_core()
-        corr = df.corr()
+        if cols != None:
+            df = df[cols]
+
+        corr = df.corr(method=method, numeric_only=True)
 
         fig, ax = plt.subplots()
         heatmap = ax.pcolor(corr, cmap='coolwarm', vmin=-1, vmax=1)
-
-        plt.xticks(np.arange(0.5, len(corr.columns), 1), corr.columns, fontsize=10, rotation=90)
-        plt.yticks(np.arange(0.5, len(corr.columns), 1), corr.columns, fontsize=10)
+        fig.subplots_adjust(bottom=0.20)
+        plt.xticks(np.arange(0.5, len(corr.columns), 1), corr.columns, fontsize=8, rotation=45)
+        plt.yticks(np.arange(0.5, len(corr.columns), 1), corr.columns, fontsize=8)
 
         cbar = plt.colorbar(heatmap)
 
@@ -233,6 +249,7 @@ def valid_DT_and_var(DT, var):
 
     if not var in DT.get_core().columns:
         raise ValueError(f'There is not {var} column in the data')
+
 def prepare_plot(x_desc, y_desc):
     import matplotlib.pyplot as plt
     plt.switch_backend('Qt5Agg')

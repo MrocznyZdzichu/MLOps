@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QTableWidgetItem
 import DataExplorer
 import GUI_utils
 from de_ua_manager import UA_manager
+from de_ba_manager import BA_manager
 
 
 class DE_Tab:
@@ -14,6 +15,7 @@ class DE_Tab:
         self.tools  = ['UnivariateAnalysis', 'BivariateAnalysis']
 
         self.UA_manager = UA_manager(window, repo)
+        self.BA_manager = BA_manager(window, repo)
 
     def initialize_tab(self):
         self.__populate_cbs_with_tables()
@@ -35,7 +37,7 @@ class DE_Tab:
             res_list  = []
 
             for var in variables:
-                dtype       = self.UA_manager.UA.get_var_type(data, var)
+                dtype       = DE.get_var_type(data, var)
                 dtype       = types_dict[dtype]
                 null_counts = self.UA_manager.UA.get_null_count(data, var)
                 res_list.append([var, dtype, null_counts])
@@ -78,6 +80,13 @@ class DE_Tab:
             self.UA_manager.UnivariateExploration(DT_explored
                                                  ,DT
                                                  ,variable)
+        elif tool == 'BivariateAnalysis':
+            var1, var2 = self.BA_manager.get_variables()
+            if var1 != '' and var2 != '':
+                self.BA_manager.explore(DT_explored
+                                        ,DT
+                                        ,var1
+                                        ,var2)
 
     def __populate_cbs_with_tables(self):
         tables         = self.repo.get_maintained_DTs()
