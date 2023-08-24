@@ -14,7 +14,7 @@
    <string>MLOps Platform Interface</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -23,7 +23,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
@@ -544,7 +544,7 @@
           <attribute name="title">
            <string>DataExplorer</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,8">
              <item>
@@ -812,6 +812,34 @@
                        </item>
                        <item>
                         <widget class="QFrame" name="de_fr_heatmap">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="BA_num_vs_char">
+                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1">
+                     <item>
+                      <widget class="QTableWidget" name="de_ba_nc_table"/>
+                     </item>
+                     <item>
+                      <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,0,0">
+                       <item row="1" column="0">
+                        <widget class="QListWidget" name="de_ba_nc_picker"/>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QFrame" name="de_ba_nc_chart">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
@@ -1163,8 +1191,8 @@
    <slot>DE_set_BA_sw(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>850</x>
-     <y>73</y>
+     <x>917</x>
+     <y>69</y>
     </hint>
     <hint type="destinationlabel">
      <x>835</x>
@@ -1179,8 +1207,8 @@
    <slot>DE_set_BA_sw(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>893</x>
-     <y>106</y>
+     <x>917</x>
+     <y>99</y>
     </hint>
     <hint type="destinationlabel">
      <x>886</x>

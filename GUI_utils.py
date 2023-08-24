@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QListWidget, QListWidgetItem
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 def textBrowser_append(tb, msg):
@@ -27,6 +29,13 @@ def set_lineEdit_text(le, text):
 
 def clear_lineEdit(le):
     le.clear()
+
+def populate_listWidget(lw, items_list):
+    for added_item in items_list:
+        item = QListWidgetItem(added_item)
+        item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+        item.setCheckState(QtCore.Qt.Unchecked)
+        lw.addItem(item)
 
 def clear_listWidget(lw):
     lw.clear()

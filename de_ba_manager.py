@@ -12,6 +12,7 @@ class BA_manager:
         self.var1_cb        = self.window.de_cb_BA_var1
         self.var2_cb        = self.window.de_cb_BA_var2
         self.table_name_cb  = self.window.de_cb_data_pick_left
+
         self.corr_method_cb = self.window.de_ba_corr_cb
         self.sw             = self.window.de_sw_explorations
         self.corr_le        = self.window.de_le_corr
@@ -21,6 +22,10 @@ class BA_manager:
         self.scatter_fr     = self.window.de_fr_scatter
         self.cols_lw        = self.window.de_lw_columns
         self.corr_methods   = ['pearson', 'spearman', 'kendall']
+
+        self.uniq_vars_lw  = self.window.de_ba_nc_picker
+        self.nc_table      = self.window.de_ba_nc_table
+        self.nc_chart      = self.window.de_ba_nc_chart
 
     def populate_BA_cbs(self):
         table_name = self.__get_table_name()
@@ -39,7 +44,8 @@ class BA_manager:
 
         if var1 != '' and var2 != '' and tool == 'BivariateAnalysis':
             types_pages = {
-                'num_vs_num' : 2
+                'num_vs_num'    : 2
+                ,'num_vs_char'  : 3
             }
             types = self.__get_types()
             analysis_type = ''
@@ -51,6 +57,11 @@ class BA_manager:
                 analysis_type = 'num_vs_num'
                 GUI_utils.populate_comboBox(self.corr_method_cb, self.corr_methods)
 
+            if any(vartype == 'A numeric variable' for vartype in types) and any(vartype == 'A character variable' for vartype in types):
+                analysis_type = 'num_vs_char'
+                char_var_name = var1 if types[0] == 'A character variable' else var2
+                self.populate_BA_nc_lw(self.__get_table_name(), char_var_name)
+
             if analysis_type in types_pages.keys():
                 GUI_utils.change_stackedWidget_page(self.sw, types_pages[analysis_type])
 
@@ -60,11 +71,16 @@ class BA_manager:
             return
 
         column_names = self.repo.get_variables(DT_name)
-        for name in column_names:
-            item = QListWidgetItem(name)
-            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
-            item.setCheckState(QtCore.Qt.Unchecked)
-            self.cols_lw.addItem(item)
+        GUI_utils.populate_listWidget(self.cols_lw, column_names)
+
+    def populate_BA_nc_lw(self, DT_name, char_var):
+        GUI_utils.clear_listWidget(self.uniq_vars_lw)
+        if DT_name == '':
+            return
+
+        DT = self.repo.get_DT(DT_name)
+        uniq_vars = list(DT.get_core()[char_var].unique())
+        GUI_utils.populate_listWidget(self.uniq_vars_lw, uniq_vars)
 
     def explore(self, DT_name, DT, var1, var2):
         types = self.__get_types()

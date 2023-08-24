@@ -212,6 +212,17 @@ class BivariateAnalysis:
         else:
             fig.show()
 
+    def num_stats_in_groups(self, DT, values_variable, group_variable):
+        return DT.get_core()[[values_variable, group_variable]].groupby(group_variable).agg(
+            ['mean'
+            ,'median'
+            ,'std'
+            ,'min'
+            ,'max'
+            ,'count'
+            ,'nunique'])
+
+
 def valid_var_params(DT, var, dest_type):
     valid_DT_and_var(DT, var)
     var_type = get_var_type(DT, var)
