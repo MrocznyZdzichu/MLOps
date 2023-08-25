@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem
 from PyQt5 import QtCore, QtGui, QtWidgets
+import numpy as np
+
 import DataExplorer as DE
 import GUI_utils
 
@@ -59,7 +61,7 @@ class BA_manager:
 
             if any(vartype == 'A numeric variable' for vartype in types) and any(vartype == 'A character variable' for vartype in types):
                 analysis_type = 'num_vs_char'
-                char_var_name = var1 if types[0] == 'A character variable' else var2
+                char_var_name = self.__get_char_variable()
                 self.populate_BA_nc_lw(self.__get_table_name(), char_var_name)
 
             if analysis_type in types_pages.keys():
@@ -86,6 +88,8 @@ class BA_manager:
         types = self.__get_types()
         if all(vartype == 'A numeric variable' for vartype in types):
             self.__num_vs_num_explore(DT_name, DT, var1, var2)
+        if any(vartype == 'A numeric variable' for vartype in types) and any(vartype == 'A character variable' for vartype in types):
+            self.__num_vs_char_explore(DT_name, DT, var1, var2)
 
     def __get_table_name(self):
         return self.table_name_cb.currentText()
@@ -110,6 +114,12 @@ class BA_manager:
     def __get_corr_type(self):
         return self.corr_method_cb.currentText()
 
+    def __get_char_variable(self):
+        var1, var2 = self.get_variables()
+        types = self.__get_types()
+        char_var_name = var1 if types[0] == 'A character variable' else var2
+        return char_var_name
+    
     def __num_vs_num_explore(self, DT_name, DT, var1, var2):
         method = self.__get_corr_type()
 
@@ -118,11 +128,7 @@ class BA_manager:
 
         self.BA.plot_scatterplot(DT, var1, var2, widget=self.scatter_fr)
 
-        cols_subset = []
-        for i in range(self.cols_lw.count()):
-            item = self.cols_lw.item(i)
-            if item.checkState() == QtCore.Qt.Checked:
-                cols_subset.append(item.text())
+        cols_subset = GUI_utils.get_lw_items(self.cols_lw)
 
         if len(cols_subset) == 0:
             cols_subset = None
@@ -144,3 +150,52 @@ class BA_manager:
                                     n_shifts=n_shifts,
                                     norm=True,
                                     widget=self.cross_corr_fr)
+
+    def __num_vs_char_explore(self, DT_name, DT, var1, var2):
+        char_var_name = self.__get_char_variable()
+        num_var_name  = var1 if var1 != char_var_name else var2
+
+        group_stats, headers = self.__stats_in_group_preparation(
+            DT, 
+            num_var_name, 
+            char_var_name
+        )
+
+        GUI_utils.populate_tableWidget(
+            self.nc_table, 
+            np.array(group_stats), 
+            headers
+        )
+
+        classes = GUI_utils.get_lw_items(self.uniq_vars_lw)
+        self.BA.plot_distribution_by_group(
+            DT, 
+            char_var_name, 
+            num_var_name, 
+            widget=self.nc_chart,
+            filter=classes
+        )
+
+    def __stats_in_group_preparation(self, DT, num_var_name, char_var_name):
+        group_stats = self.BA.num_stats_in_groups(
+            DT, 
+            num_var_name, 
+            char_var_name
+        ).round(3)
+
+        group_stats.reset_index(inplace=True)
+        group_stats.rename(columns={'index': 'Grouping Value'}, inplace=True)
+        group_stats = group_stats.rename(columns={
+            'mean': 'Mean',
+            'median': 'Median',
+            'std': 'Standard Deviation',
+            'min': 'Min',
+            'max': 'Max',
+            'count': 'Count',
+            'nunique': 'Unique Values'
+        })
+        headers = []
+        for stat_name in list(group_stats.columns):
+            headers.append(stat_name[1])        
+        
+        return group_stats, headers

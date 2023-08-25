@@ -1,3 +1,5 @@
+import seaborn as sns
+
 class UnivariateAnalysis:
     def get_mean(self, DT, var):
         valid_var_params(DT, var, 'numeric')
@@ -222,6 +224,22 @@ class BivariateAnalysis:
             ,'count'
             ,'nunique'])
 
+    def plot_distribution_by_group(self, DT, group_column, value_column, filter=[], widget=None):
+        grouped = DT.get_core().groupby(group_column)
+
+        fig, ax = prepare_plot(value_column, 'Histogram')
+        
+        for group, data in grouped:
+            if filter != [] and group not in filter:
+                continue
+            sns.histplot(data[value_column], label=f'Group {group}', ax=ax, kde=True)
+
+        format_ticks(ax)
+        fig.legend()
+        if widget!=None:
+            export_plot_to_Qt(fig, widget)
+        else:
+            fig.show()
 
 def valid_var_params(DT, var, dest_type):
     valid_DT_and_var(DT, var)

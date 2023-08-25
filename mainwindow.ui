@@ -834,11 +834,8 @@
                       <widget class="QTableWidget" name="de_ba_nc_table"/>
                      </item>
                      <item>
-                      <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,0,0">
+                      <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,4">
                        <item row="1" column="0">
-                        <widget class="QListWidget" name="de_ba_nc_picker"/>
-                       </item>
-                       <item row="2" column="0">
                         <widget class="QFrame" name="de_ba_nc_chart">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
@@ -847,6 +844,9 @@
                           <enum>QFrame::Raised</enum>
                          </property>
                         </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <widget class="QListWidget" name="de_ba_nc_picker"/>
                        </item>
                       </layout>
                      </item>

@@ -40,6 +40,14 @@ def populate_listWidget(lw, items_list):
 def clear_listWidget(lw):
     lw.clear()
 
+def get_lw_items(lw):
+    result = []
+    for i in range(lw.count()):
+            item = lw.item(i)
+            if item.checkState() == QtCore.Qt.Checked:
+                result.append(item.text())
+    return result
+
 def populate_tableWidget(tw, data2D, headers=None):
     row_count = len(data2D)
     col_count = len(data2D[0])
