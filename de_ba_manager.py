@@ -11,8 +11,14 @@ class BA_manager:
         self.repo       = repo
         self.BA         = DE.BivariateAnalysis()
 
+        self.variables_roles = {
+            'A numeric variable'    : ['Values', 'Categories']
+            ,'A character variable' : ['Categories']
+        }
         self.var1_cb        = self.window.de_cb_BA_var1
         self.var2_cb        = self.window.de_cb_BA_var2
+        self.var1_role_cb   = self.window.de_cb_BA_role1
+        self.var2_role_cb   = self.window.de_cb_BA_role2
         self.table_name_cb  = self.window.de_cb_data_pick_left
 
         self.corr_method_cb = self.window.de_ba_corr_cb
@@ -41,31 +47,48 @@ class BA_manager:
                 GUI_utils.populate_comboBox(cb, variables)
 
     def change_sw_page(self):
-        var1, var2 = self.get_variables()
-        tool = self.__get_tool()
+        var1, var2  = self.get_variables()
+        role1, role2 = self.__get_roles()
+        tool        = self.__get_tool()
 
-        if var1 != '' and var2 != '' and tool == 'BivariateAnalysis':
+        if var1 != '' and var2 != '' \
+        and tool == 'BivariateAnalysis' \
+        and role1 != '' and role2 != '':
             types_pages = {
                 'num_vs_num'    : 2
                 ,'num_vs_char'  : 3
             }
-            types = self.__get_types()
             analysis_type = ''
-
-            if 'A datetime variable' in types:
-                return
-
-            if all(vartype == 'A numeric variable' for vartype in types):
+            if role1 == 'Values' and role2 == 'Values':
                 analysis_type = 'num_vs_num'
-                GUI_utils.populate_comboBox(self.corr_method_cb, self.corr_methods)
+                GUI_utils.populate_comboBox(
+                    self.corr_method_cb
+                    , self.corr_methods
+                )
 
-            if any(vartype == 'A numeric variable' for vartype in types) and any(vartype == 'A character variable' for vartype in types):
+            if any(role == 'Categories' for role in (role1, role2))  \
+            and any(role == 'Values' for role in (role1, role2)):
                 analysis_type = 'num_vs_char'
                 char_var_name = self.__get_char_variable()
                 self.populate_BA_nc_lw(self.__get_table_name(), char_var_name)
 
             if analysis_type in types_pages.keys():
                 GUI_utils.change_stackedWidget_page(self.sw, types_pages[analysis_type])
+
+    def populate_var_role_cb1(self, variable):
+        var_type = self.__get_types(variable=variable)
+        GUI_utils.populate_comboBox(
+            self.var1_role_cb
+            , self.variables_roles[var_type]
+        )
+
+    def populate_var_role_cb2(self, variable):
+        var_type = self.__get_types(variable=variable)
+        GUI_utils.populate_comboBox(
+            self.var2_role_cb
+            , self.variables_roles[var_type]
+        )
+
 
     def populate_BA_lw(self, DT_name):
         GUI_utils.clear_listWidget(self.cols_lw)
@@ -81,14 +104,16 @@ class BA_manager:
             return
 
         DT = self.repo.get_DT(DT_name)
-        uniq_vars = list(DT.get_core()[char_var].unique())
+        uniq_vars = list(DT.get_core()[char_var].astype(str).unique())
         GUI_utils.populate_listWidget(self.uniq_vars_lw, uniq_vars)
 
     def explore(self, DT_name, DT, var1, var2):
-        types = self.__get_types()
-        if all(vartype == 'A numeric variable' for vartype in types):
+        role1, role2 = self.__get_roles()
+        if role1 == 'Values' and role2 == 'Values':
             self.__num_vs_num_explore(DT_name, DT, var1, var2)
-        if any(vartype == 'A numeric variable' for vartype in types) and any(vartype == 'A character variable' for vartype in types):
+            
+        if any(role == 'Categories' for role in (role1, role2))  \
+        and any(role == 'Values' for role in (role1, role2)):
             self.__num_vs_char_explore(DT_name, DT, var1, var2)
 
     def __get_table_name(self):
@@ -97,15 +122,22 @@ class BA_manager:
     def get_variables(self):
         return self.window.de_cb_BA_var1.currentText(), \
                 self.window.de_cb_BA_var2.currentText()
-
-    def __get_types(self):
-        var1, var2 = self.get_variables()
+    
+    def __get_roles(self):
+        role1 = self.var1_role_cb.currentText()
+        role2 = self.var2_role_cb.currentText()
+        return [role1, role2]
+    
+    def __get_types(self, variable=''):
         DT = self.repo.get_DT(self.__get_table_name())
-
-        types = [
-            DE.get_var_type(DT, var1)
-            ,DE.get_var_type(DT, var2)
-        ]
+        if variable == '':
+            var1, var2 = self.get_variables()
+            types = [
+                DE.get_var_type(DT, var1)
+                ,DE.get_var_type(DT, var2)
+            ]
+        else:
+            types = DE.get_var_type(DT, variable)
         return types
 
     def __get_tool(self):
@@ -160,7 +192,7 @@ class BA_manager:
             num_var_name, 
             char_var_name
         )
-        print(headers)
+        
         GUI_utils.populate_tableWidget(
             self.nc_table, 
             np.array(group_stats), 
@@ -200,5 +232,5 @@ class BA_manager:
         
         # Add the grouping column
         headers[0] = char_var_name
-        
+
         return group_stats, headers

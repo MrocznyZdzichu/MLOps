@@ -2,35 +2,35 @@ import seaborn as sns
 
 class UnivariateAnalysis:
     def get_mean(self, DT, var):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].mean()
 
     def get_median(self, DT, var):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].median()
 
     def get_stddev(self, DT, var):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].std()
 
     def get_quantile(self, DT, var, q=0.25):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].quantile(q)
 
     def get_min(self, DT, var):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].min()
 
     def get_max(self, DT, var):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].max()
 
     def get_uniq_vars_count(self, DT, var):
-        valid_var_params(DT, var, 'character')
+        # valid_var_params(DT, var, 'character')
         return DT.get_core()[var].nunique()
 
     def get_frequencies(self, DT, var):
-        valid_var_params(DT, var, 'character')
+        # valid_var_params(DT, var, 'character')
         return DT.get_core()[var].value_counts().to_dict()
 
     def get_null_count(self, DT, var):
@@ -38,11 +38,11 @@ class UnivariateAnalysis:
         return DT.get_core()[var].isnull().sum()
 
     def get_nan_count(self, DT, var):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
         return DT.get_core()[var].isna().sum()
 
     def plot_histogram(self, DT, var, widget=None):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
 
         df = DT.get_core()
 
@@ -56,7 +56,7 @@ class UnivariateAnalysis:
             fig.show()
 
     def plot_boxplot(self, DT, var, widget=None):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
 
         df = DT.get_core()
 
@@ -77,7 +77,7 @@ class UnivariateAnalysis:
             fig.show()
 
     def plot_values(self, DT, var, widget=None):
-        valid_var_params(DT, var, 'numeric')
+        # valid_var_params(DT, var, 'numeric')
 
         df = DT.get_core()
 
@@ -91,11 +91,11 @@ class UnivariateAnalysis:
             fig.show()
 
     def plot_barplot(self, DT, var, widget=None):
-        valid_var_params(DT, var, 'character')
+        # valid_var_params(DT, var, 'character')
 
         df = DT.get_core()
 
-        freq = df[var].value_counts()
+        freq = df[var].astype(str).value_counts()
         if len(freq) > 7:
             freq = freq.nlargest(7)
             freq['Others'] = df[var].count() - freq.sum()
@@ -110,7 +110,7 @@ class UnivariateAnalysis:
             fig.show()
 
     def plot_piechart(self, DT, var, widget=None):
-        valid_var_params(DT, var, 'character')
+        # valid_var_params(DT, var, 'character')
 
         df = DT.get_core()
 
@@ -137,8 +137,8 @@ class BivariateAnalysis:
         return DT.get_core()[[x, y]].corr(method=method).values[0][1]
 
     def plot_scatterplot(self, DT, x, y, widget=None):
-        valid_var_params(DT, y, 'numeric')
-        valid_var_params(DT, x, 'numeric')
+        # valid_var_params(DT, y, 'numeric')
+        # valid_var_params(DT, x, 'numeric')
         df = DT.get_core()
 
         fig, ax = prepare_plot(f'Variable {x}', f'Variable {y}')
@@ -176,8 +176,8 @@ class BivariateAnalysis:
         return shifts, cross_corr
 
     def plot_crosscorrelation(self, DT, x, y, n_shifts=None, norm=False, widget=None):
-        valid_var_params(DT, y, 'numeric')
-        valid_var_params(DT, x, 'numeric')
+        # valid_var_params(DT, y, 'numeric')
+        # valid_var_params(DT, x, 'numeric')
 
         shifts, cross_corr = self.get_crosscorrelation(DT, x, y,
                                                         n_shifts=n_shifts,
@@ -225,7 +225,9 @@ class BivariateAnalysis:
             ,'nunique'])
 
     def plot_distribution_by_group(self, DT, group_column, value_column, filter=[], widget=None):
-        grouped = DT.get_core().groupby(group_column)
+        df = DT.get_core()
+        df[group_column] = df[group_column].astype(str)
+        grouped = df.groupby(group_column)
 
         fig, ax = prepare_plot(value_column, 'Histogram')
         

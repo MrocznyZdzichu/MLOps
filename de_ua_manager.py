@@ -9,6 +9,8 @@ class UA_manager:
         self.UA         = DE.UnivariateAnalysis()
         self.plot_types = ['Histogram', 'Boxplot', "Values' chart"]
 
+        self.var_role_cb    = self.window.de_cb_UA_role
+
     def populate_cb_UA_num_plot(self):
         plot_selector = self.window.de_cb_plot_selector
         GUI_utils.populate_comboBox(plot_selector, self.plot_types)
@@ -23,28 +25,40 @@ class UA_manager:
 
             GUI_utils.populate_comboBox(UA_var_selector, variables)
 
-    def set_UA_sw(self, variable):
+    def populate_roles_cb(self, variable):
         if variable == '':
             return
 
-        page_indices = {
-            "numeric"    : 0
-            ,"character" : 1
+        variable_roles = {
+            "numeric"       : ["Values", 'Categories']
+            ,"character"    : ['Categories']
         }
+
         table_name = self.window.de_cb_data_pick_left.currentText()
         var_type   = self.__get_var_type(table_name, variable)
+        GUI_utils.populate_comboBox(self.var_role_cb, variable_roles[var_type])
 
-        page_idx = page_indices[var_type]
-        if page_idx in (0, 1):
-            UA_stackedWidget = self.window.de_sw_explorations
-            GUI_utils.change_stackedWidget_page(UA_stackedWidget
-                                                ,page_idx)
+    def set_UA_sw(self, role):
+        if role == '':
+            return
+
+        page_indices = {
+            "Values"    : 0
+            ,"Categories" : 1
+        }
+        page_idx = page_indices[role]
+
+        UA_stackedWidget = self.window.de_sw_explorations
+        GUI_utils.change_stackedWidget_page(UA_stackedWidget
+                                            ,page_idx)
+            
+        
 
     def UnivariateExploration(self, DT_name, DT, variable):
-        var_type = self.__get_var_type(DT_name, variable)
-        if var_type == 'numeric':
+        var_type = self.__get_var_role()
+        if var_type == 'Values':
             self.__numeric_exploration(DT, variable)
-        elif var_type == 'character':
+        elif var_type == 'Categories':
             self.__character_exploration(DT, variable)
 
     def replot_numeric(self, plot_type):
@@ -69,6 +83,9 @@ class UA_manager:
         }
         return type_shorten[var_type]
 
+    def __get_var_role(self):
+        return self.var_role_cb.currentText()
+    
     def __numeric_exploration(self, DT, variable):
         mean   = self.UA.get_mean(DT, variable)
         median = self.UA.get_median(DT, variable)

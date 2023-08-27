@@ -17,6 +17,9 @@ class DE_Tab:
         self.UA_manager = UA_manager(window, repo)
         self.BA_manager = BA_manager(window, repo)
 
+        self.var1_role_cb = self.window.de_cb_BA_role1
+        self.var2_role_cb = self.window.de_cb_BA_role2
+
     def initialize_tab(self):
         self.__populate_cbs_with_tables()
         self.__populate_exploration_tools()

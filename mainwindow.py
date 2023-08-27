@@ -105,8 +105,11 @@ class MainWindow(QMainWindow):
         elif selected_DE_tool == 'BivariateAnalysis':
             self.DE_manager.BA_manager.populate_BA_cbs()
 
-    def DE_set_UA_sw(self, variable):
-        self.DE_manager.UA_manager.set_UA_sw(variable)
+    def DE_UA_populate_roles(self, variable):
+        self.DE_manager.UA_manager.populate_roles_cb(variable)
+
+    def DE_set_UA_sw(self, role):
+        self.DE_manager.UA_manager.set_UA_sw(role)
 
     def DE_exploration(self):
         self.DE_manager.exploration()
@@ -115,6 +118,16 @@ class MainWindow(QMainWindow):
         if plot_type == '':
             return
         self.DE_manager.UA_manager.replot_numeric(plot_type)
+
+    def DE_BA_pop_var1_role(self, variable):
+        if variable == '':
+            return
+        self.DE_manager.BA_manager.populate_var_role_cb1(variable)
+
+    def DE_BA_pop_var2_role(self, variable):
+        if variable == '':
+            return
+        self.DE_manager.BA_manager.populate_var_role_cb2(variable)
 
     def DE_set_BA_sw(self, var):
         self.DE_manager.BA_manager.change_sw_page()
