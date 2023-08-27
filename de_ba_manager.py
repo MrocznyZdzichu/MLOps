@@ -160,7 +160,7 @@ class BA_manager:
             num_var_name, 
             char_var_name
         )
-
+        print(headers)
         GUI_utils.populate_tableWidget(
             self.nc_table, 
             np.array(group_stats), 
@@ -197,5 +197,8 @@ class BA_manager:
         headers = []
         for stat_name in list(group_stats.columns):
             headers.append(stat_name[1])        
+        
+        # Add the grouping column
+        headers[0] = char_var_name
         
         return group_stats, headers
