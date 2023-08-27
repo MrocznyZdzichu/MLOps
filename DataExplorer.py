@@ -1,4 +1,6 @@
 import seaborn as sns
+import pandas as pd
+
 
 class UnivariateAnalysis:
     def get_mean(self, DT, var):
@@ -242,6 +244,16 @@ class BivariateAnalysis:
             export_plot_to_Qt(fig, widget)
         else:
             fig.show()
+
+    def chi2_contingence(self, DT, var1, var2):
+        from scipy.stats import chi2_contingency
+        
+        df = DT.get_core()[[var1, var2]]
+
+        cross_tab = pd.crosstab(df[var1], df[var2])
+        chi2, p, dof, expected = chi2_contingency(cross_tab)
+        return chi2
+
 
 def valid_var_params(DT, var, dest_type):
     valid_DT_and_var(DT, var)

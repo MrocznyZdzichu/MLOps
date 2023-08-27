@@ -14,8 +14,8 @@
    <string>MLOps Platform Interface</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_7">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_15">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -561,6 +561,9 @@
               <layout class="QGridLayout" name="gridLayout_4" rowstretch="1,10" columnstretch="1,2,1">
                <item row="1" column="0" colspan="3">
                 <widget class="QStackedWidget" name="de_sw_explorations">
+                 <property name="currentIndex">
+                  <number>4</number>
+                 </property>
                  <widget class="QWidget" name="UA_numeric">
                   <layout class="QHBoxLayout" name="horizontalLayout_8">
                    <item>
@@ -847,6 +850,52 @@
                        </item>
                        <item row="0" column="0">
                         <widget class="QListWidget" name="de_ba_nc_picker"/>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="BA_cat_vs_cat">
+                  <layout class="QGridLayout" name="gridLayout_16">
+                   <item row="0" column="0">
+                    <layout class="QGridLayout" name="gridLayout_14" rowstretch="8,0,0">
+                     <item row="1" column="0">
+                      <widget class="QFrame" name="de_ba_cc_crosstab">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QFrame" name="de_ba_cc_stackedBars">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0" colspan="2">
+                      <layout class="QVBoxLayout" name="verticalLayout_6">
+                       <item>
+                        <widget class="QLabel" name="label_9">
+                         <property name="text">
+                          <string>Chi-squared continqency value: (The lower chi2-cont is the more probable dependance is)</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="de_ba_cc_chi2">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
                        </item>
                       </layout>
                      </item>

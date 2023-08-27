@@ -35,6 +35,8 @@ class BA_manager:
         self.nc_table      = self.window.de_ba_nc_table
         self.nc_chart      = self.window.de_ba_nc_chart
 
+        self.chi2_le    = self.window.de_ba_cc_chi2
+
     def populate_BA_cbs(self):
         table_name = self.__get_table_name()
 
@@ -57,6 +59,7 @@ class BA_manager:
             types_pages = {
                 'num_vs_num'    : 2
                 ,'num_vs_char'  : 3
+                ,'cat_vs_cat'   : 4
             }
             analysis_type = ''
             if role1 == 'Values' and role2 == 'Values':
@@ -66,8 +69,10 @@ class BA_manager:
                     , self.corr_methods
                 )
 
-            if any(role == 'Categories' for role in (role1, role2))  \
-            and any(role == 'Values' for role in (role1, role2)):
+            elif role1 == 'Categories' and role2 == 'Categories':
+                analysis_type = 'cat_vs_cat'
+            
+            else:
                 analysis_type = 'num_vs_char'
                 char_var_name = self.__get_char_variable()
                 self.populate_BA_nc_lw(self.__get_table_name(), char_var_name)
@@ -111,9 +116,9 @@ class BA_manager:
         role1, role2 = self.__get_roles()
         if role1 == 'Values' and role2 == 'Values':
             self.__num_vs_num_explore(DT_name, DT, var1, var2)
-            
-        if any(role == 'Categories' for role in (role1, role2))  \
-        and any(role == 'Values' for role in (role1, role2)):
+        elif role1 == 'Categories' and role2 == 'Categories':
+            self.__cat_vs_cat_explore(DT_name, DT, var1, var2)
+        else:
             self.__num_vs_char_explore(DT_name, DT, var1, var2)
 
     def __get_table_name(self):
@@ -234,3 +239,7 @@ class BA_manager:
         headers[0] = char_var_name
 
         return group_stats, headers
+    
+    def __cat_vs_cat_explore(self, DT_name, DT, var1, var2):
+        chi2_cont = self.BA.chi2_contingence(DT, var1, var2)
+        GUI_utils.set_lineEdit_text(self.chi2_le, str(chi2_cont))
