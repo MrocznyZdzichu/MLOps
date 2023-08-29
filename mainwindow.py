@@ -68,7 +68,6 @@ class MainWindow(QMainWindow):
 
     def clear_curr_DT(self):
         self.DL_manager.clear_curr_DT()
-        self.DE_manager.populate_cbs()
 
     def save_DT(self):
         self.DL_manager.save_DT()
@@ -95,14 +94,22 @@ class MainWindow(QMainWindow):
 
     def DE_tab_list_variables(self, selected_DT):
         self.DE_manager.populate_variables_table(selected_DT)
-        self.DE_manager.populate_UA_cb()
+        self.DE_manager.UA_manager.populate_UA_cb()
+        self.DE_manager.BA_manager.populate_BA_cbs()
+        self.DE_manager.BA_manager.populate_BA_lw(selected_DT)
 
     def DE_set_cbs_for_tool(self, selected_DE_tool):
         self.DE_manager.set_cbs_for_tool(selected_DE_tool)
-        self.DE_manager.populate_UA_cb()
+        if selected_DE_tool == 'UnivariateAnalysis':
+            self.DE_manager.UA_manager.populate_UA_cb()
+        elif selected_DE_tool == 'BivariateAnalysis':
+            self.DE_manager.BA_manager.populate_BA_cbs()
 
-    def DE_set_UA_sw(self, variable):
-        self.DE_manager.set_UA_sw(variable)
+    def DE_UA_populate_roles(self, variable):
+        self.DE_manager.UA_manager.populate_roles_cb(variable)
+
+    def DE_set_UA_sw(self, role):
+        self.DE_manager.UA_manager.set_UA_sw(role)
 
     def DE_exploration(self):
         self.DE_manager.exploration()
@@ -110,7 +117,20 @@ class MainWindow(QMainWindow):
     def DE_replot_(self, plot_type):
         if plot_type == '':
             return
-        self.DE_manager.replot_numeric(plot_type)
+        self.DE_manager.UA_manager.replot_numeric(plot_type)
+
+    def DE_BA_pop_var1_role(self, variable):
+        if variable == '':
+            return
+        self.DE_manager.BA_manager.populate_var_role_cb1(variable)
+
+    def DE_BA_pop_var2_role(self, variable):
+        if variable == '':
+            return
+        self.DE_manager.BA_manager.populate_var_role_cb2(variable)
+
+    def DE_set_BA_sw(self, var):
+        self.DE_manager.BA_manager.change_sw_page()
 
 
 if __name__ == "__main__":
