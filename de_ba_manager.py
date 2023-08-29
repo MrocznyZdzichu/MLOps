@@ -35,7 +35,10 @@ class BA_manager:
         self.nc_table      = self.window.de_ba_nc_table
         self.nc_chart      = self.window.de_ba_nc_chart
 
-        self.chi2_le    = self.window.de_ba_cc_chi2
+        self.chi2_le        = self.window.de_ba_cc_chi2
+        self.cc_barchart    = self.window.de_ba_cc_stackedBars
+        self.cc_other_chart = self.window.de_ba_cc_crosstab
+
 
     def populate_BA_cbs(self):
         table_name = self.__get_table_name()
@@ -243,3 +246,5 @@ class BA_manager:
     def __cat_vs_cat_explore(self, DT_name, DT, var1, var2):
         chi2_cont = self.BA.chi2_contingence(DT, var1, var2)
         GUI_utils.set_lineEdit_text(self.chi2_le, str(chi2_cont))
+        self.BA.plot_xtab(DT, var1, var2, widget=self.cc_barchart)
+        self.BA.plot_xtab_heatmap(DT, var1, var2, widget=self.cc_other_chart)

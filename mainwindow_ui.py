@@ -3,24 +3,15 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.1
+## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
-    QSizePolicy, QSpacerItem, QStackedWidget, QStatusBar,
-    QTabWidget, QTableWidget, QTableWidgetItem, QTextBrowser,
-    QVBoxLayout, QWidget)
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -29,8 +20,8 @@ class Ui_MainWindow(object):
         MainWindow.resize(1800, 900)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.verticalLayout_7 = QVBoxLayout(self.centralwidget)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.gridLayout_15 = QGridLayout(self.centralwidget)
+        self.gridLayout_15.setObjectName(u"gridLayout_15")
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
@@ -658,6 +649,49 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addLayout(self.horizontalLayout_11)
 
         self.de_sw_explorations.addWidget(self.BA_num_vs_char)
+        self.BA_cat_vs_cat = QWidget()
+        self.BA_cat_vs_cat.setObjectName(u"BA_cat_vs_cat")
+        self.gridLayout_16 = QGridLayout(self.BA_cat_vs_cat)
+        self.gridLayout_16.setObjectName(u"gridLayout_16")
+        self.gridLayout_14 = QGridLayout()
+        self.gridLayout_14.setObjectName(u"gridLayout_14")
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.label_9 = QLabel(self.BA_cat_vs_cat)
+        self.label_9.setObjectName(u"label_9")
+
+        self.verticalLayout_6.addWidget(self.label_9)
+
+        self.de_ba_cc_chi2 = QLineEdit(self.BA_cat_vs_cat)
+        self.de_ba_cc_chi2.setObjectName(u"de_ba_cc_chi2")
+        self.de_ba_cc_chi2.setEnabled(False)
+
+        self.verticalLayout_6.addWidget(self.de_ba_cc_chi2)
+
+
+        self.gridLayout_14.addLayout(self.verticalLayout_6, 2, 0, 1, 2)
+
+        self.de_ba_cc_stackedBars = QFrame(self.BA_cat_vs_cat)
+        self.de_ba_cc_stackedBars.setObjectName(u"de_ba_cc_stackedBars")
+        self.de_ba_cc_stackedBars.setFrameShape(QFrame.StyledPanel)
+        self.de_ba_cc_stackedBars.setFrameShadow(QFrame.Raised)
+
+        self.gridLayout_14.addWidget(self.de_ba_cc_stackedBars, 0, 1, 2, 1)
+
+        self.de_ba_cc_crosstab = QFrame(self.BA_cat_vs_cat)
+        self.de_ba_cc_crosstab.setObjectName(u"de_ba_cc_crosstab")
+        self.de_ba_cc_crosstab.setFrameShape(QFrame.StyledPanel)
+        self.de_ba_cc_crosstab.setFrameShadow(QFrame.Raised)
+
+        self.gridLayout_14.addWidget(self.de_ba_cc_crosstab, 0, 0, 2, 1)
+
+        self.gridLayout_14.setRowStretch(0, 8)
+        self.gridLayout_14.setColumnStretch(0, 1)
+        self.gridLayout_14.setColumnStretch(1, 1)
+
+        self.gridLayout_16.addLayout(self.gridLayout_14, 0, 0, 1, 1)
+
+        self.de_sw_explorations.addWidget(self.BA_cat_vs_cat)
 
         self.gridLayout_4.addWidget(self.de_sw_explorations, 1, 0, 1, 3)
 
@@ -677,35 +711,57 @@ class Ui_MainWindow(object):
         self.UA_tool.setObjectName(u"UA_tool")
         self.verticalLayout_15 = QVBoxLayout(self.UA_tool)
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
-        self.verticalLayout_6 = QVBoxLayout()
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.horizontalLayout_14 = QHBoxLayout()
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
         self.de_cb_UA_var = QComboBox(self.UA_tool)
         self.de_cb_UA_var.setObjectName(u"de_cb_UA_var")
 
-        self.verticalLayout_6.addWidget(self.de_cb_UA_var)
+        self.horizontalLayout_14.addWidget(self.de_cb_UA_var)
+
+        self.de_cb_UA_role = QComboBox(self.UA_tool)
+        self.de_cb_UA_role.setObjectName(u"de_cb_UA_role")
+
+        self.horizontalLayout_14.addWidget(self.de_cb_UA_role)
 
 
-        self.verticalLayout_15.addLayout(self.verticalLayout_6)
+        self.verticalLayout_15.addLayout(self.horizontalLayout_14)
 
         self.de_sw_tools.addWidget(self.UA_tool)
         self.BA_tool = QWidget()
         self.BA_tool.setObjectName(u"BA_tool")
         self.verticalLayout_17 = QVBoxLayout(self.BA_tool)
         self.verticalLayout_17.setObjectName(u"verticalLayout_17")
-        self.verticalLayout_16 = QVBoxLayout()
-        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
-        self.de_cb_BA_var1 = QComboBox(self.BA_tool)
-        self.de_cb_BA_var1.setObjectName(u"de_cb_BA_var1")
-
-        self.verticalLayout_16.addWidget(self.de_cb_BA_var1)
-
+        self.gridLayout_9 = QGridLayout()
+        self.gridLayout_9.setObjectName(u"gridLayout_9")
         self.de_cb_BA_var2 = QComboBox(self.BA_tool)
         self.de_cb_BA_var2.setObjectName(u"de_cb_BA_var2")
 
-        self.verticalLayout_16.addWidget(self.de_cb_BA_var2)
+        self.gridLayout_9.addWidget(self.de_cb_BA_var2, 1, 0, 1, 1)
 
+        self.de_cb_BA_role1 = QComboBox(self.BA_tool)
+        self.de_cb_BA_role1.setObjectName(u"de_cb_BA_role1")
 
-        self.verticalLayout_17.addLayout(self.verticalLayout_16)
+        self.gridLayout_9.addWidget(self.de_cb_BA_role1, 0, 2, 1, 1)
+
+        self.de_cb_BA_var1 = QComboBox(self.BA_tool)
+        self.de_cb_BA_var1.setObjectName(u"de_cb_BA_var1")
+
+        self.gridLayout_9.addWidget(self.de_cb_BA_var1, 0, 0, 1, 1)
+
+        self.de_cb_BA_role2 = QComboBox(self.BA_tool)
+        self.de_cb_BA_role2.setObjectName(u"de_cb_BA_role2")
+
+        self.gridLayout_9.addWidget(self.de_cb_BA_role2, 1, 2, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_9.addItem(self.horizontalSpacer_3, 0, 1, 1, 1)
+
+        self.gridLayout_9.setColumnStretch(0, 3)
+        self.gridLayout_9.setColumnStretch(1, 1)
+        self.gridLayout_9.setColumnStretch(2, 3)
+
+        self.verticalLayout_17.addLayout(self.gridLayout_9)
 
         self.de_sw_tools.addWidget(self.BA_tool)
 
@@ -729,7 +785,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.addWidget(self.tabWidget)
 
 
-        self.verticalLayout_7.addWidget(self.frame)
+        self.gridLayout_15.addWidget(self.frame, 0, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QStatusBar(MainWindow)
@@ -752,13 +808,17 @@ class Ui_MainWindow(object):
         self.de_cb_data_pick_left.currentTextChanged.connect(MainWindow.DE_tab_list_variables)
         self.de_pb_explore.clicked.connect(MainWindow.DE_exploration)
         self.de_cb_tools.currentTextChanged.connect(MainWindow.DE_set_cbs_for_tool)
-        self.de_cb_UA_var.currentTextChanged.connect(MainWindow.DE_set_UA_sw)
         self.de_cb_plot_selector.currentTextChanged.connect(MainWindow.DE_replot_)
-        self.de_cb_BA_var1.currentTextChanged.connect(MainWindow.DE_set_BA_sw)
-        self.de_cb_BA_var2.currentTextChanged.connect(MainWindow.DE_set_BA_sw)
+        self.de_cb_BA_var1.currentTextChanged.connect(MainWindow.DE_BA_pop_var1_role)
+        self.de_cb_BA_var2.currentTextChanged.connect(MainWindow.DE_BA_pop_var2_role)
+        self.de_cb_UA_var.currentTextChanged.connect(MainWindow.DE_UA_populate_roles)
+        self.de_cb_UA_role.currentTextChanged.connect(MainWindow.DE_set_UA_sw)
+        self.de_cb_BA_role1.currentTextChanged.connect(MainWindow.DE_set_BA_sw)
+        self.de_cb_BA_role2.currentTextChanged.connect(MainWindow.DE_set_BA_sw)
 
         self.tabWidget.setCurrentIndex(2)
         self.dl_pb_load_pickle.setDefault(False)
+        self.de_sw_explorations.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -793,6 +853,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Cross-correlation's shifts", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Columns for a correlations' heatmap", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Correlation's value", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Chi-squared continqency value: (The lower chi2-cont is the more probable dependance is)", None))
         self.de_pb_explore.setText(QCoreApplication.translate("MainWindow", u"Explore!", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.DataExplorer), QCoreApplication.translate("MainWindow", u"DataExplorer", None))
     # retranslateUi

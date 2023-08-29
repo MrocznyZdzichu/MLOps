@@ -245,16 +245,45 @@ class BivariateAnalysis:
         else:
             fig.show()
 
+    def get_crosstab(self, DT, var1, var2):
+        df = DT.get_core()
+        return pd.crosstab(df[var1], df[var2])
+    
     def chi2_contingence(self, DT, var1, var2):
         from scipy.stats import chi2_contingency
         
-        df = DT.get_core()[[var1, var2]]
-
-        cross_tab = pd.crosstab(df[var1], df[var2])
+        cross_tab = self.get_crosstab(DT, var1, var2)
         chi2, p, dof, expected = chi2_contingency(cross_tab)
         return chi2
 
+    def plot_xtab(self, DT, var1, var2, widget=None, kind='bar'):
+        crosstab = self.get_crosstab(DT, var1, var2)
 
+        fig, ax = prepare_plot(f'{var1} values', 'Counts')
+        crosstab.plot(ax=ax, kind=kind, stacked=True)
+        format_ticks(ax)
+
+        handles, labels = ax.get_legend_handles_labels()
+        ax.legend(handles, labels, title=var2)
+        
+        if widget!=None:
+            export_plot_to_Qt(fig, widget)
+        else:
+            fig.show()
+
+    def plot_xtab_heatmap(self, DT, var1, var2, widget=None):
+        crosstab = self.get_crosstab(DT, var1, var2)
+
+        fig, ax = prepare_plot(f'{var1} values', 'Counts')
+        sns.heatmap(crosstab, annot=True, fmt="d", cmap="YlGnBu", ax=ax)
+        format_ticks(ax)
+        
+        if widget!=None:
+            export_plot_to_Qt(fig, widget)
+        else:
+            fig.show()
+        
+        
 def valid_var_params(DT, var, dest_type):
     valid_DT_and_var(DT, var)
     var_type = get_var_type(DT, var)
