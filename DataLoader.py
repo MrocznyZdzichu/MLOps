@@ -1,3 +1,5 @@
+from DL_csvLoader import DL_csvLoader
+
 class DataLoader:
     """
     DataLoader is a class wrapping pandas' various data load techniques in one method.
@@ -13,19 +15,7 @@ class DataLoader:
         self.__valid_interactive = (True, False)
         self.__supported_extensions = ('csv')
         
-        self.__csv_msg      = 'Enter the pandas.read_csv(...) arguments. Input them in Py valid syntax'
-        self.__csv_params   = ['sep', 'thousands', 'quotechar', 'decimal'
-                              ,'header', 'nrows'
-                              ,'names', 'true_values', 'false_values', 'na_values'
-                              ,'dtype']
-        self.__csv_defaults = [',', '', '', ''
-                               ,'', '', ''
-                               ,'', '', '', ''
-                              ,'']
-        self.__csv_types    = ('string', 'string', 'string', 'string'
-                              ,'int', 'int'
-                              ,['string'], ['string'], ['string'], ['string']
-                              ,'dict')
+        self.__csv_loader = DL_csvLoader()
         
     def load_data(self, interactive=True, path=None, parameters={}):  
         """
@@ -59,14 +49,17 @@ class DataLoader:
         if self.__validate_path_extension(extension) == False:
             raise ValueError("Empty or unsupported input file's path")
             
+        if extension == 'csv':
+            loader = self.__csv_loader
+
         if interactive == True:
-            msg, fieldNames, defaults, types = self.__get_possible_parameters(extension)           
+            msg, fieldNames, defaults, types = loader.get_possible_parameters()       
             import_params = self.__open_params_window(msg, fieldNames, defaults)
             import_params = self.__process_parameters(import_params, defaults, types)
         else:
             import_params = parameters
 
-        df = self.__pandas_loader(path, extension, import_params)
+        df = loader.load_to_df(path, import_params)
         filename = path.split('\\')[-1].split('.')[0]
                               
         from DataTable import DataTable as DT
@@ -136,15 +129,6 @@ The loaded DataTable object
     def __validate_path_extension(self, extension):
         return extension in self.__supported_extensions
     
-    def __get_possible_parameters(self, extension):
-        if extension == 'csv':
-            msg      = self.__csv_msg
-            params   = self.__csv_params
-            defaults = self.__csv_defaults
-            types    = self.__csv_types
-        
-        return msg, params, defaults, types
-    
     def __open_params_window(self, msg, fieldNames, defaults=()):
         import easygui
         title = "Data import's details"
@@ -177,8 +161,3 @@ The loaded DataTable object
             it += 1
         
         return processed_parameters
-            
-    def __pandas_loader(self, path, extension, parameters):
-        import pandas as pd
-        if extension == 'csv':
-            return pd.read_csv(path, **parameters)
