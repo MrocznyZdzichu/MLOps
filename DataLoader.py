@@ -1,5 +1,7 @@
 from CSVLoader import CSVLoader
 from PickleLoader import PickleLoader
+from DL_InteractiveProcessor import DL_InteractiveProcessor as InteractiveProcessor
+
 
 class DataLoader:
     """
@@ -35,10 +37,10 @@ class DataLoader:
         """
         if not self.__validate_interactive(interactive):
             raise ValueError('Wrong interactivity mode passed.')
-            
+        
+        IP = InteractiveProcessor()
         if interactive == True:
-            import easygui
-            path = easygui.fileopenbox()
+            path = IP.get_path()
             
         elif type(path) != str or len(path) == 0 or type(parameters) != dict:
              raise ValueError('Explicit parameters not specified properly')   
@@ -59,8 +61,8 @@ class DataLoader:
         if interactive == True:
             msg, fieldNames, defaults, types = loader.get_possible_parameters()
             if all(param != None for param in (msg, fieldNames, defaults, types)):       
-                import_params = self.__open_params_window(msg, fieldNames, defaults)
-                import_params = self.__process_parameters(import_params, defaults, types)
+                import_params = IP.open_params_window(msg, fieldNames, defaults)
+                import_params = IP.process_parameters(import_params, defaults, types)
 
         return loader.load_to_DT(path, import_params, filename)
                               
@@ -88,70 +90,8 @@ The loaded DataTable object
         loader = PickleLoader()
         return loader.load_DT(pickle_path)
         
-                
-    def get_loader_info(self):
-        """
-        A typical informative/sumamry method. It returns an info string about:
-        * valid interactivity modes (that ones are quite obvious though)
-        * supported extensions / data sources
-        * type-specific parameters' details
-        
-        The info is a totally low-effort hardcode of the class atributes, but it stills acheive its verbose role.
-        """
-        info_string = """
-        self.__valid_interactive = (True, False)
-        self.__supported_extensions = ('csv')
-        
-        self.__csv_msg      = 'Enter the pandas.read_csv(...) arguments. Input them in Py valid syntax'
-        self.__csv_params   = ['sep', 'thousands', 'quotechar', 'decimal'
-                              ,'header', 'nrows'
-                              ,'names', 'true_values', 'false_values', 'na_values'
-                              ,'dtype']
-        self.__csv_defaults = [',', '', '', ''
-                               ,'', '', ''
-                               ,'', '', '', ''
-                              ,'']
-        self.__csv_types    = ('string', 'string', 'string', 'string'
-                              ,'int', 'int'
-                              ,['string'], ['string'], ['string'], ['string']
-        """
-        return info_string
-        
     def __validate_interactive(self, interactive):
         return interactive in self.__valid_interactive
     
     def __validate_path_extension(self, extension):
         return extension in self.__supported_extensions
-    
-    def __open_params_window(self, msg, fieldNames, defaults=()):
-        import easygui
-        title = "Data import's details"
-        parameters = easygui.multenterbox(msg, title, fieldNames, values=defaults)
-        
-        parameters_as_dict = {}
-        dicted = 0
-        for par in fieldNames:
-            parameters_as_dict[par] = parameters[dicted]
-            dicted += 1
-        
-        return parameters_as_dict
-        
-    def __process_parameters(self, parameters, defaults, types):
-        import numpy as np
-        import copy
-        processed_parameters = copy.copy(parameters)
-        
-        it = 0
-        for key in parameters:
-            value = parameters[key]
-            if value in ('None', ''):
-                del processed_parameters[key]
-                it += 1
-                continue
-              
-            if types[it] != 'string':
-                processed_parameters[key] = eval(value)
-             
-            it += 1
-        
-        return processed_parameters
