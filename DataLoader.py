@@ -1,4 +1,5 @@
-from DL_csvLoader import DL_csvLoader
+from CSVLoader import CSVLoader
+from PickleLoader import PickleLoader
 
 class DataLoader:
     """
@@ -13,9 +14,7 @@ class DataLoader:
         This config is readable via get_loader_info() method which returns summary string.
         """
         self.__valid_interactive = (True, False)
-        self.__supported_extensions = ('csv')
-        
-        self.__csv_loader = DL_csvLoader()
+        self.__supported_extensions = ('csv', 'pkl')
         
     def load_data(self, interactive=True, path=None, parameters={}):  
         """
@@ -50,21 +49,21 @@ class DataLoader:
             raise ValueError("Empty or unsupported input file's path")
             
         if extension == 'csv':
-            loader = self.__csv_loader
+            loader = CSVLoader()
+        elif extension == 'pkl':
+            loader = PickleLoader()
+
+        filename = path.split('\\')[-1].split('.')[0]
+        import_params = parameters
 
         if interactive == True:
-            msg, fieldNames, defaults, types = loader.get_possible_parameters()       
-            import_params = self.__open_params_window(msg, fieldNames, defaults)
-            import_params = self.__process_parameters(import_params, defaults, types)
-        else:
-            import_params = parameters
+            msg, fieldNames, defaults, types = loader.get_possible_parameters()
+            if all(param != None for param in (msg, fieldNames, defaults, types)):       
+                import_params = self.__open_params_window(msg, fieldNames, defaults)
+                import_params = self.__process_parameters(import_params, defaults, types)
 
-        df = loader.load_to_df(path, import_params)
-        filename = path.split('\\')[-1].split('.')[0]
+        return loader.load_to_DT(path, import_params, filename)
                               
-        from DataTable import DataTable as DT
-        return DT(df, name=filename)
-    
     def load_saved_DT(self, pickle_path='', interactive=True):
         """
 A method to load a DataTable instance stored in a pickle file.
@@ -86,14 +85,9 @@ The loaded DataTable object
             import easygui
             pickle_path = easygui.fileopenbox()
         
-        import pickle
-        import DataTable as DT
-        with open(pickle_path, 'rb') as dump:
-            readen = pickle.load(dump)
-            if isinstance(readen, DT.DataTable):
-                return readen
-            else:
-                raise TypeError('Readen file must be a DataTable instance')
+        loader = PickleLoader()
+        return loader.load_DT(pickle_path)
+        
                 
     def get_loader_info(self):
         """

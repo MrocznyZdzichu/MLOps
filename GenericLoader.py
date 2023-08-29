@@ -12,5 +12,9 @@ class GenericLoader(ABC):
         return msg, params, defaults, types
     
     @abstractmethod
-    def load_to_df(self, path, ext, import_params={}):
+    def load_to_df(self, path, import_params={}):
+        pass
+
+    @abstractmethod
+    def load_to_DT(self, path, import_params={}, filename=''):
         pass
