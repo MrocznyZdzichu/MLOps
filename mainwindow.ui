@@ -562,7 +562,7 @@
                <item row="1" column="0" colspan="3">
                 <widget class="QStackedWidget" name="de_sw_explorations">
                  <property name="currentIndex">
-                  <number>4</number>
+                  <number>3</number>
                  </property>
                  <widget class="QWidget" name="UA_numeric">
                   <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -903,6 +903,31 @@
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QWidget" name="TableBrowser">
+                  <layout class="QGridLayout" name="gridLayout_18">
+                   <item row="0" column="0">
+                    <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="3,1">
+                     <item>
+                      <widget class="QTableWidget" name="tb_tw"/>
+                     </item>
+                     <item>
+                      <layout class="QGridLayout" name="gridLayout_17">
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_10">
+                         <property name="text">
+                          <string>Obs buffer:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="de_tb_le_buffer"/>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
                <item row="0" column="2">
@@ -964,6 +989,7 @@
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QWidget" name="TB_tool"/>
                 </widget>
                </item>
               </layout>
@@ -1335,6 +1361,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>de_tb_le_buffer</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>DE_TB_buffer_changed(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1636</x>
+     <y>491</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>899</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>change_size(int)</slot>
@@ -1358,5 +1400,6 @@
   <slot>DE_UA_populate_roles(QString)</slot>
   <slot>DE_BA_pop_var1_role(QString)</slot>
   <slot>DE_BA_pop_var2_role(QString)</slot>
+  <slot>DE_TB_buffer_changed(QString)</slot>
  </slots>
 </ui>
