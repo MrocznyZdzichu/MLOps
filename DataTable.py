@@ -49,7 +49,7 @@ A basic getter method. It returns names of the DataTable's variables
         """
 A basic getter method. It returns a shape of the DataFrame (rows and cols counts)
         """
-        return self._shape
+        return self.__shape
     
     def get_summary(self):
         """
@@ -69,16 +69,23 @@ Variables:
             summary += f"\n{variable} as: {self.__types[variable]}"
         return summary
     
-    def save(self, dir_path='', force=False):
+    def save(self, interactive=True, dir_path='', force=False):
         """
 This method dumps a DataTable into a pickle (.pkl) file.
 ----------
 Parameters:
-dir_path - A path to a directory where we want to save a pkl. If '' its gonna be pwd
-force    - True|False if True we overwrite the pickle if it already exists.
+interactive - True|False. If true make a dialogue to ask for a destination directory
+dir_path    - A path to a directory where we want to save a pkl. If '' its gonna be pwd
+force       - True|False if True we overwrite the pickle if it already exists.
         """
+        if interactive not in (True, False):
+            raise ValueError('interactive parameter can be only True/False') 
         if force not in (True, False):
             raise ValueError('force parameter can be only True/False')
+        if interactive == True:
+            import easygui
+            dir_path = easygui.diropenbox()
+            
         import pickle
         if dir_path == '':
             target_path = self.__name+'.pkl'

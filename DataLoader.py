@@ -1,3 +1,8 @@
+from CSVLoader import CSVLoader
+from PickleLoader import PickleLoader
+from DL_InteractiveProcessor import DL_InteractiveProcessor as InteractiveProcessor
+
+
 class DataLoader:
     """
     DataLoader is a class wrapping pandas' various data load techniques in one method.
@@ -11,21 +16,7 @@ class DataLoader:
         This config is readable via get_loader_info() method which returns summary string.
         """
         self.__valid_interactive = (True, False)
-        self.__supported_extensions = ('csv')
-        
-        self.__csv_msg      = 'Enter the pandas.read_csv(...) arguments. Input them in Py valid syntax'
-        self.__csv_params   = ['sep', 'thousands', 'quotechar', 'decimal'
-                              ,'header', 'nrows'
-                              ,'names', 'true_values', 'false_values', 'na_values'
-                              ,'dtype']
-        self.__csv_defaults = [',', '', '', ''
-                               ,'', '', ''
-                               ,'', '', '', ''
-                              ,'']
-        self.__csv_types    = ('string', 'string', 'string', 'string'
-                              ,'int', 'int'
-                              ,['string'], ['string'], ['string'], ['string']
-                              ,'dict')
+        self.__supported_extensions = ('csv', 'pkl')
         
     def load_data(self, interactive=True, path=None, parameters={}):  
         """
@@ -46,10 +37,10 @@ class DataLoader:
         """
         if not self.__validate_interactive(interactive):
             raise ValueError('Wrong interactivity mode passed.')
-            
+        
+        IP = InteractiveProcessor()
         if interactive == True:
-            import easygui
-            path = easygui.fileopenbox()
+            path = IP.get_path()
             
         elif type(path) != str or len(path) == 0 or type(parameters) != dict:
              raise ValueError('Explicit parameters not specified properly')   
@@ -59,114 +50,48 @@ class DataLoader:
         if self.__validate_path_extension(extension) == False:
             raise ValueError("Empty or unsupported input file's path")
             
-        if interactive == True:
-            msg, fieldNames, defaults, types = self.__get_possible_parameters(extension)           
-            import_params = self.__open_params_window(msg, fieldNames, defaults)
-            import_params = self.__process_parameters(import_params, defaults, types)
-        else:
-            import_params = parameters
+        if extension == 'csv':
+            loader = CSVLoader()
+        elif extension == 'pkl':
+            loader = PickleLoader()
 
-        df = self.__pandas_loader(path, extension, import_params)
         filename = path.split('\\')[-1].split('.')[0]
+        import_params = parameters
+
+        if interactive == True:
+            msg, fieldNames, defaults, types = loader.get_possible_parameters()
+            if all(param != None for param in (msg, fieldNames, defaults, types)):       
+                import_params = IP.open_params_window(msg, fieldNames, defaults)
+                import_params = IP.process_parameters(import_params, defaults, types)
+
+        return loader.load_to_DT(path, import_params, filename)
                               
-        from DataTable import DataTable as DT
-        return DT(df, name=filename)
-    
-    def load_saved_DT(self, pickle_path):
+    def load_saved_DT(self, pickle_path='', interactive=True):
         """
 A method to load a DataTable instance stored in a pickle file.
-It requires pickle_path (string) as a parameter - a path to the pickle.
-It returns the resolved DataTable instance of course.
+----------
+Parameters:
+pickle_path ()     - an explicit path to the loaded pickled DataTable
+interactive (True) - True for interactive mode based on easygui. False for explicit path required.
+----------
+Returns: 
+The loaded DataTable object
         """
-        if pickle_path[-4:] != '.pkl':
+        if not self.__validate_interactive:
+            raise ValueError('interactive flag must be one of: (True, False)')
+        
+        if pickle_path[-4:] != '.pkl' and interactive == False:
             raise ValueError('The path must specify a pickle dump')
-            
-        import pickle
-        import DataTable as DT
-        with open(pickle_path, 'rb') as dump:
-            readen = pickle.load(dump)
-            if isinstance(readen, DT.DataTable):
-                return readen
-            else:
-                raise TypeError('Readen file must be a DataTable instance')
-                
-    def get_loader_info(self):
-        """
-        A typical informative/sumamry method. It returns an info string about:
-        * valid interactivity modes (that ones are quite obvious though)
-        * supported extensions / data sources
-        * type-specific parameters' details
+    
+        if interactive == True:
+            import easygui
+            pickle_path = easygui.fileopenbox()
         
-        The info is a totally low-effort hardcode of the class atributes, but it stills acheive its verbose role.
-        """
-        info_string = """
-        self.__valid_interactive = (True, False)
-        self.__supported_extensions = ('csv')
-        
-        self.__csv_msg      = 'Enter the pandas.read_csv(...) arguments. Input them in Py valid syntax'
-        self.__csv_params   = ['sep', 'thousands', 'quotechar', 'decimal'
-                              ,'header', 'nrows'
-                              ,'names', 'true_values', 'false_values', 'na_values'
-                              ,'dtype']
-        self.__csv_defaults = [',', '', '', ''
-                               ,'', '', ''
-                               ,'', '', '', ''
-                              ,'']
-        self.__csv_types    = ('string', 'string', 'string', 'string'
-                              ,'int', 'int'
-                              ,['string'], ['string'], ['string'], ['string']
-        """
-        return info_string
+        loader = PickleLoader()
+        return loader.load_DT(pickle_path)
         
     def __validate_interactive(self, interactive):
         return interactive in self.__valid_interactive
     
     def __validate_path_extension(self, extension):
         return extension in self.__supported_extensions
-    
-    def __get_possible_parameters(self, extension):
-        if extension == 'csv':
-            msg      = self.__csv_msg
-            params   = self.__csv_params
-            defaults = self.__csv_defaults
-            types    = self.__csv_types
-        
-        return msg, params, defaults, types
-    
-    def __open_params_window(self, msg, fieldNames, defaults=()):
-        import easygui
-        title = "Data import's details"
-        parameters = easygui.multenterbox(msg, title, fieldNames, values=defaults)
-        
-        parameters_as_dict = {}
-        dicted = 0
-        for par in fieldNames:
-            parameters_as_dict[par] = parameters[dicted]
-            dicted += 1
-        
-        return parameters_as_dict
-        
-    def __process_parameters(self, parameters, defaults, types):
-        import numpy as np
-        import copy
-        processed_parameters = copy.copy(parameters)
-        
-        it = 0
-        for key in parameters:
-            value = parameters[key]
-            if value in ('None', ''):
-                del processed_parameters[key]
-                it += 1
-                continue
-              
-            if types[it] != 'string':
-                processed_parameters[key] = eval(value)
-             
-            it += 1
-        
-        return processed_parameters
-            
-    def __pandas_loader(self, path, extension, parameters):
-        import pandas as pd
-        if extension == 'csv':
-            return pd.read_csv(path, **parameters)

@@ -1,0 +1,3 @@
+{
+    "files": ["de_tab_manager.py","de_ua_manager.py","mainwindow.ui","de_ba_manager.py","DataRepository.py","DataExplorer.py","sandbox.py","DataTable.py","DataLoader.py","mainwindow.py","dl_tab_manager.py","GUI_utils.py","dr_tab_manager.py"]
+}
