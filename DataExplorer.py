@@ -283,7 +283,6 @@ class BivariateAnalysis:
         else:
             fig.show()
         
-        
 def valid_var_params(DT, var, dest_type):
     valid_DT_and_var(DT, var)
     var_type = get_var_type(DT, var)

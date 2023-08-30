@@ -1,4 +1,6 @@
 import numpy as np
+from functools import partial
+from PyQt5 import QtCore
 import GUI_utils
 
 class TableBrowserManager:
@@ -17,6 +19,21 @@ class TableBrowserManager:
         self.__output_tw        = window.tb_tw
         self.__buffer_le        = window.de_tb_le_buffer
 
+    def column_header_double_clicked(self, column_index):
+        self.sort_data(column_index)
+    
+    def sort_data(self, column_index):
+        current_sort_order = self.__output_tw.horizontalHeader()\
+            .sortIndicatorOrder()
+        sort_order = QtCore.Qt.DescendingOrder \
+            if current_sort_order == QtCore.Qt.AscendingOrder \
+            else QtCore.Qt.AscendingOrder
+        
+        self.__output_tw.sortItems(
+            column_index
+            , sort_order
+        )
+
     def prepare_UI(self):
         self.__switch_explore_sw()
         self.__switch_tools_sw()
@@ -30,10 +47,17 @@ class TableBrowserManager:
         buffer_length = self.__read_buffer_size()
         data = self.__repo.get_DT(table_name).get_core().head(buffer_length)
         data_numpy = np.array(data)
+
+        columns = list(data.columns)
         GUI_utils.populate_tableWidget(
             self.__output_tw
             ,data_numpy
+            ,columns
         )
+        for column_index in range(self.__output_tw.columnCount()):
+            self.__output_tw.horizontalHeader().sectionDoubleClicked.connect(
+                lambda col=column_index: self.column_header_double_clicked(col)
+            )
 
     def buffer_changed_slot(self, buffer_text):
         try:
@@ -43,7 +67,6 @@ class TableBrowserManager:
         else:
             self.refresh_exploration()
         
-
     def __switch_explore_sw(self):
         GUI_utils.change_stackedWidget_page(
             self.__tab_sw
