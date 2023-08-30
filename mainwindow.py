@@ -97,6 +97,7 @@ class MainWindow(QMainWindow):
         self.DE_manager.UA_manager.populate_UA_cb()
         self.DE_manager.BA_manager.populate_BA_cbs()
         self.DE_manager.BA_manager.populate_BA_lw(selected_DT)
+        self.DE_manager.TB_manager.refresh_exploration()
 
     def DE_set_cbs_for_tool(self, selected_DE_tool):
         self.DE_manager.set_cbs_for_tool(selected_DE_tool)
@@ -104,6 +105,8 @@ class MainWindow(QMainWindow):
             self.DE_manager.UA_manager.populate_UA_cb()
         elif selected_DE_tool == 'BivariateAnalysis':
             self.DE_manager.BA_manager.populate_BA_cbs()
+        elif selected_DE_tool == 'TableBrowser':
+            self.DE_manager.TB_manager.prepare_UI()
 
     def DE_UA_populate_roles(self, variable):
         self.DE_manager.UA_manager.populate_roles_cb(variable)
@@ -131,6 +134,10 @@ class MainWindow(QMainWindow):
 
     def DE_set_BA_sw(self, var):
         self.DE_manager.BA_manager.change_sw_page()
+
+    def DE_TB_buffer_changed(self, buffer_text):
+        self.DE_manager.TB_manager.buffer_changed_slot(buffer_text)
+
 
 
 if __name__ == "__main__":

@@ -15,6 +15,9 @@ def disable_pushButton(pb):
 def enable_pushButton(pb):
     pb.setEnabled(1)
 
+def read_comboBox(cb):
+    return cb.currentText()
+
 def clear_comboBox(cb):
     cb.clear()
 
@@ -23,6 +26,9 @@ def populate_comboBox(cb, values, empty_first=False):
     if empty_first == True:
         cb.addItem('')
     cb.addItems(values)
+
+def read_lineEdit(le):
+    return le.text()
 
 def set_lineEdit_text(le, text):
     le.setText(text)

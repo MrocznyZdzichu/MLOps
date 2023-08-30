@@ -6,17 +6,19 @@ import DataExplorer
 import GUI_utils
 from de_ua_manager import UA_manager
 from de_ba_manager import BA_manager
+from de_tb_manager import TableBrowserManager as TB_manager
 
 
 class DE_Tab:
     def __init__(self, window, repo):
         self.window = window
         self.repo   = repo
-        self.tools  = ['UnivariateAnalysis', 'BivariateAnalysis']
+        self.tools  = ['UnivariateAnalysis', 'BivariateAnalysis', 'TableBrowser']
 
         self.UA_manager = UA_manager(window, repo)
         self.BA_manager = BA_manager(window, repo)
-
+        self.TB_manager = TB_manager(window, repo)
+        
         self.var1_role_cb = self.window.de_cb_BA_role1
         self.var2_role_cb = self.window.de_cb_BA_role2
 

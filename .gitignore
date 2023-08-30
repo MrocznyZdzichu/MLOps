@@ -1,0 +1,5 @@
+*.csv
+*.pkl
+*.ipynb
+*.html
+*.cpython*
