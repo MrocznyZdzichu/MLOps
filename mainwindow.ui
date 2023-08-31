@@ -562,7 +562,7 @@
                <item row="1" column="0" colspan="3">
                 <widget class="QStackedWidget" name="de_sw_explorations">
                  <property name="currentIndex">
-                  <number>5</number>
+                  <number>2</number>
                  </property>
                  <widget class="QWidget" name="UA_numeric">
                   <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -916,15 +916,33 @@
                      </item>
                      <item>
                       <layout class="QGridLayout" name="gridLayout_17">
-                       <item row="0" column="0">
+                       <item row="1" column="0">
                         <widget class="QLabel" name="label_10">
                          <property name="text">
                           <string>Obs buffer:</string>
                          </property>
                         </widget>
                        </item>
-                       <item row="0" column="1">
+                       <item row="1" column="1">
                         <widget class="QLineEdit" name="de_tb_le_buffer"/>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="de_tb_le_sorting"/>
+                       </item>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_17">
+                         <property name="text">
+                          <string>Sorting in
+SQL syntax</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="0" colspan="2">
+                        <widget class="QPushButton" name="de_tb_pb_refresh">
+                         <property name="text">
+                          <string>Refresh!</string>
+                         </property>
+                        </widget>
                        </item>
                       </layout>
                      </item>
@@ -1366,14 +1384,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>de_tb_le_buffer</sender>
-   <signal>textChanged(QString)</signal>
+   <sender>de_tb_pb_refresh</sender>
+   <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>DE_TB_buffer_changed(QString)</slot>
+   <slot>DE_TB_refresh()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1636</x>
-     <y>491</y>
+     <x>1603</x>
+     <y>672</y>
     </hint>
     <hint type="destinationlabel">
      <x>899</x>
@@ -1405,5 +1423,6 @@
   <slot>DE_BA_pop_var1_role(QString)</slot>
   <slot>DE_BA_pop_var2_role(QString)</slot>
   <slot>DE_TB_buffer_changed(QString)</slot>
+  <slot>DE_TB_refresh()</slot>
  </slots>
 </ui>

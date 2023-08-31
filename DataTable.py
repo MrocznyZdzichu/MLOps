@@ -99,3 +99,10 @@ force       - True|False if True we overwrite the pickle if it already exists.
             
         with open(target_path, 'wb') as dump:
             pickle.dump(self, dump)
+
+    def sort(self, sort_dict):
+        df = self.get_core()
+        return df.sort_values(
+            by=list(sort_dict.keys())
+            ,ascending=list(sort_dict.values())
+        )
