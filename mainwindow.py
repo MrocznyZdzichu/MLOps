@@ -98,6 +98,7 @@ class MainWindow(QMainWindow):
         self.DE_manager.BA_manager.populate_BA_cbs()
         self.DE_manager.BA_manager.populate_BA_lw(selected_DT)
         self.DE_manager.TB_manager.reset_params()
+        self.DE_manager.TB_manager.handle_table_change()
         self.DE_manager.TB_manager.refresh_exploration()
 
     def DE_set_cbs_for_tool(self, selected_DE_tool):

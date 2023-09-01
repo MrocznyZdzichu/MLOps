@@ -709,28 +709,44 @@ class Ui_MainWindow(object):
         self.label_10 = QLabel(self.TableBrowser)
         self.label_10.setObjectName(u"label_10")
 
-        self.gridLayout_17.addWidget(self.label_10, 1, 0, 1, 1)
-
-        self.de_tb_le_buffer = QLineEdit(self.TableBrowser)
-        self.de_tb_le_buffer.setObjectName(u"de_tb_le_buffer")
-
-        self.gridLayout_17.addWidget(self.de_tb_le_buffer, 1, 1, 1, 1)
+        self.gridLayout_17.addWidget(self.label_10, 2, 0, 1, 1)
 
         self.de_tb_le_sorting = QLineEdit(self.TableBrowser)
         self.de_tb_le_sorting.setObjectName(u"de_tb_le_sorting")
 
-        self.gridLayout_17.addWidget(self.de_tb_le_sorting, 0, 1, 1, 1)
-
-        self.label_17 = QLabel(self.TableBrowser)
-        self.label_17.setObjectName(u"label_17")
-
-        self.gridLayout_17.addWidget(self.label_17, 0, 0, 1, 1)
+        self.gridLayout_17.addWidget(self.de_tb_le_sorting, 1, 1, 1, 1)
 
         self.de_tb_pb_refresh = QPushButton(self.TableBrowser)
         self.de_tb_pb_refresh.setObjectName(u"de_tb_pb_refresh")
 
-        self.gridLayout_17.addWidget(self.de_tb_pb_refresh, 2, 0, 1, 2)
+        self.gridLayout_17.addWidget(self.de_tb_pb_refresh, 3, 0, 1, 2)
 
+        self.label_17 = QLabel(self.TableBrowser)
+        self.label_17.setObjectName(u"label_17")
+
+        self.gridLayout_17.addWidget(self.label_17, 1, 0, 1, 1)
+
+        self.de_tb_le_buffer = QLineEdit(self.TableBrowser)
+        self.de_tb_le_buffer.setObjectName(u"de_tb_le_buffer")
+
+        self.gridLayout_17.addWidget(self.de_tb_le_buffer, 2, 1, 1, 1)
+
+        self.de_tb_lw_cols = QListWidget(self.TableBrowser)
+        self.de_tb_lw_cols.setObjectName(u"de_tb_lw_cols")
+
+        self.gridLayout_17.addWidget(self.de_tb_lw_cols, 0, 1, 1, 1)
+
+        self.label_18 = QLabel(self.TableBrowser)
+        self.label_18.setObjectName(u"label_18")
+
+        self.gridLayout_17.addWidget(self.label_18, 0, 0, 1, 1)
+
+        self.gridLayout_17.setRowStretch(0, 1)
+        self.gridLayout_17.setRowStretch(1, 1)
+        self.gridLayout_17.setRowStretch(2, 1)
+        self.gridLayout_17.setRowStretch(3, 1)
+        self.gridLayout_17.setColumnStretch(0, 1)
+        self.gridLayout_17.setColumnStretch(1, 3)
 
         self.horizontalLayout_15.addLayout(self.gridLayout_17)
 
@@ -870,7 +886,7 @@ class Ui_MainWindow(object):
 
         self.tabWidget.setCurrentIndex(2)
         self.dl_pb_load_pickle.setDefault(False)
-        self.de_sw_explorations.setCurrentIndex(2)
+        self.de_sw_explorations.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -907,9 +923,11 @@ class Ui_MainWindow(object):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Correlation's value", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Chi-squared continqency value: (The lower chi2-cont is the more probable dependance is)", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Obs buffer:", None))
+        self.de_tb_pb_refresh.setText(QCoreApplication.translate("MainWindow", u"Refresh!", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Sorting in\n"
 "SQL syntax", None))
-        self.de_tb_pb_refresh.setText(QCoreApplication.translate("MainWindow", u"Refresh!", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Columns\n"
+"to show", None))
         self.de_pb_explore.setText(QCoreApplication.translate("MainWindow", u"Explore!", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.DataExplorer), QCoreApplication.translate("MainWindow", u"DataExplorer", None))
     # retranslateUi

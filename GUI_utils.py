@@ -37,6 +37,7 @@ def clear_lineEdit(le):
     le.clear()
 
 def populate_listWidget(lw, items_list):
+    lw.clear()
     for added_item in items_list:
         item = QListWidgetItem(added_item)
         item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)

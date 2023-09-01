@@ -21,6 +21,7 @@ class TableBrowserManager:
         self.__output_tw        = window.tb_tw
         self.__buffer_le        = window.de_tb_le_buffer
         self.__sorting_le       = window.de_tb_le_sorting
+        self.__cols_lw          = window.de_tb_lw_cols
 
         self.__cols_sorting = {}
         
@@ -28,6 +29,7 @@ class TableBrowserManager:
         self.__switch_explore_sw()
         self.__switch_tools_sw()
         self.__disable_explore_button()
+        self.__populate_columns_list()
 
     def reset_params(self):
         self.__cols_sorting = {}
@@ -42,18 +44,20 @@ class TableBrowserManager:
             return
         
         DT = self.__repo.get_DT(table_name)
+        self.__data_columns = list(DT.get_variables())
 
         data = self.__process_DT(DT)
-        data_numpy = np.array(data)
-
         columns = list(data.columns)
-        self.__data_columns = columns
+        data_numpy = np.array(data)
 
         GUI_utils.populate_tableWidget(
             self.__output_tw
             ,data_numpy
             ,columns
         )
+
+    def handle_table_change(self):
+        self.__populate_columns_list()
 
     def __get_table_name(self):
         return GUI_utils.read_comboBox(self.__table_name_cb)
@@ -95,12 +99,13 @@ class TableBrowserManager:
     def __validate_sorting_string(self, sorting_text):
         if sorting_text == '':
             return False
+        
         text_parsed = sorting_text.replace(' ,', ',')
         text_parsed = sorting_text.replace(', ', ',')
         text_parsed = text_parsed.split(',')
-                
+        
         col_names, do_ascs = self.__prepare_sorting_lists(text_parsed)
-
+                
         if all(sort_col in self.__data_columns for sort_col in col_names):
             for i in range(0, len(col_names)):
                 self.__cols_sorting[col_names[i]] = do_ascs[i]
@@ -115,7 +120,7 @@ class TableBrowserManager:
         for col in parsed_sorting_text:
             if len(col) > 4:
                 if col[-4:].lower() == 'desc':
-                    col_names.append(col[:-4])
+                    col_names.append(col[:-4].strip())
                     do_ascs.append(False)
                 else:
                     col_names.append(col)
@@ -133,4 +138,16 @@ class TableBrowserManager:
         else:
             data = DT.sort(self.__cols_sorting)
 
+        cols_selected = GUI_utils.get_lw_items(self.__cols_lw)
+        if len(cols_selected) > 0:
+            data = data[cols_selected]
+
         return data.head(buffer_length)
+    
+    def __populate_columns_list(self):
+        tab_name = self.__get_table_name()
+        if tab_name == "":
+            return
+        
+        columns = list(self.__repo.get_DT(tab_name).get_core().columns)
+        GUI_utils.populate_listWidget(self.__cols_lw, columns)
